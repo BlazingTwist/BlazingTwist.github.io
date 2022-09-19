@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="css/parallax.css">
+    <meta charset="UTF-8">
+    <title>Parallax Test</title>
+</head>
+<body>
+
+<div id="sky-tex-js-holder" style="display: none; visibility: hidden">
+    <!-- beware! nasty almost-but-not-quite-duplicate of an element contained in 'space-tex-div' -->
+    <picture>
+        <source media="(min-width: 2560px)" srcset="img/spacetex-3072-tileY.png">
+        <source media="(min-width: 1536px)" srcset="img/spacetex-2048-tileY.png">
+        <img src="img/spacetex-1024-tileY.png" alt="sky texture" style="width: 100%; margin-top: -1px"/>
+    </picture>
+</div>
+
+<div class="parallax">
+    <script>
+        function resizeBackground() {
+            let mainContentDiv = document.getElementById("main-content-div");
+            let windowHeight = window.innerHeight;
+            let windowWidth = window.innerWidth;
+            let scrollHeight = Math.max(0, (mainContentDiv.offsetHeight + (0.2 * windowHeight)) - windowHeight)
+
+            // compute size for spaceTex
+            let spaceTexWidth = 1024;
+            let spaceTexHeight = 2887;
+            let spaceTexDiv = document.getElementById("space-tex-div");
+            let targetSpaceTexWidth = (windowWidth * 2);
+            let targetSpaceTexHeight = ((windowHeight + (scrollHeight)) * 2);
+
+            spaceTexDiv.style.transform = "translateX(-" + (windowWidth / 2) + "px) translateY(-" + (windowHeight / 2) + "px) translateZ(-300px)";
+            spaceTexDiv.style.width = "" + targetSpaceTexWidth + "px";
+            spaceTexDiv.style.height = "" + targetSpaceTexHeight + "px";
+
+            // repeat image if target height exceeds height of image
+            let currentSingleImageHeight = targetSpaceTexWidth / spaceTexWidth * spaceTexHeight;
+            let coveredHeight = spaceTexDiv.childElementCount * currentSingleImageHeight;
+            if (coveredHeight < targetSpaceTexHeight) {
+                let skyTexHolder = document.getElementById("sky-tex-js-holder");
+                let skyTexImg = skyTexHolder.children.item(0);
+                while (coveredHeight < targetSpaceTexHeight) {
+                    spaceTexDiv.appendChild(skyTexImg.cloneNode(true));
+                    coveredHeight += currentSingleImageHeight;
+                }
+            }
+
+            // compute size for treeline
+            let treelineWidth = 3286;
+            let treelineHeight = 685;
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            resizeBackground()
+            new ResizeObserver(resizeBackground).observe(document.getElementById("main-content-div"));
+        })
+    </script>
+
+    <div class="parallax_layer parallax_layer--back" style="height: 100%; width: 100%; font-size: 0;" id="space-tex-div">
+        <picture>
+            <source media="(min-width: 2560px)" srcset="img/spacetex-3072-tileY.png">
+            <source media="(min-width: 1536px)" srcset="img/spacetex-2048-tileY.png">
+            <img src="img/spacetex-1024-tileY.png" alt="sky texture" style="width: 100%;"/>
+        </picture>
+    </div>
+    <div class="parallax_layer parallax_layer--back_overlay" style="height: 100%; width: 100%; font-size: 0;">
+        <img src="img/treeline-stroked-tileX.png" alt="treeline" style="width: 100%; margin-top: 80vh;"/>
+        <div style="margin-top: -1px; width: 100%; height: 100%; background-color: #000000;"></div>
+    </div>
+    <!--<img src="img/skytex-new-tileY.png" class="sky_background_img parallax_layer parallax_layer--back" alt="sky texture" style="top:563.8vw;"/>-->
+    <div class="parallax_layer parallax_layer--base table-container"
+         style="font-size: 1em; color: white; height: max-content;" id="main-content-div">
+        <table class="data-table">
+            <tbody>
+            <tr>
+                <td>&nbsp;<b>
+                    Time</b>&nbsp;
+                </td>
+                <td>&nbsp;<b>
+                    Priority</b>&nbsp;
+                </td>
+                <td>&nbsp;<b>
+                    Description</b>&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>&nbsp;Tue Aug 16 01:42:49 2022
+                    &nbsp;
+                </td>
+                <td>&nbsp;Critical (3)&nbsp;</td>
+                <td>&nbsp;Received Response to Broadcast Maintenance Request, But no Un...&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;Tue Aug 16 01:42:00 2022
+                    &nbsp;
+                </td>
+                <td>&nbsp;Critical (3)&nbsp;</td>
+                <td>&nbsp;SSH user logged out.&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;Time Not Established&nbsp;</td>
+                <td>&nbsp;Warning (5)&nbsp;</td>
+                <td>&nbsp;DHCP WARNING - Non-critical field invalid in response ;CM-MAC...&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;Time Not Established&nbsp;</td>
+                <td>&nbsp;Notice (6)&nbsp;</td>
+                <td>&nbsp;Honoring MDD; IP provisioning mode = IPv4&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;Time Not Established&nbsp;</td>
+                <td>&nbsp;Critical (3)&nbsp;</td>
+                <td>&nbsp;No Ranging Response received - T3 time-out;CM-MAC=cc:35:40:e1...&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;Time Not Established&nbsp;</td>
+                <td>&nbsp;Notice (6)&nbsp;</td>
+                <td>&nbsp;WiFi Interface [wl0] set to Channel 1 (Side-Band Channel:N/A)...&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;Tue Aug 16 01:42:49 2022
+                    &nbsp;
+                </td>
+                <td>&nbsp;Critical (3)&nbsp;</td>
+                <td>&nbsp;Received Response to Broadcast Maintenance Request, But no Un...&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;Tue Aug 16 01:42:00 2022
+                    &nbsp;
+                </td>
+                <td>&nbsp;Critical (3)&nbsp;</td>
+                <td>&nbsp;SSH user logged out.&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;Time Not Established&nbsp;</td>
+                <td>&nbsp;Warning (5)&nbsp;</td>
+                <td>&nbsp;DHCP WARNING - Non-critical field invalid in response ;CM-MAC...&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;Time Not Established&nbsp;</td>
+                <td>&nbsp;Notice (6)&nbsp;</td>
+                <td>&nbsp;Honoring MDD; IP provisioning mode = IPv4&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;Time Not Established&nbsp;</td>
+                <td>&nbsp;Critical (3)&nbsp;</td>
+                <td>&nbsp;No Ranging Response received - T3 time-out;CM-MAC=cc:35:40:e1...&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;Time Not Established&nbsp;</td>
+                <td>&nbsp;Notice (6)&nbsp;</td>
+                <td>&nbsp;WiFi Interface [wl0] set to Channel 1 (Side-Band Channel:N/A)...&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;Tue Aug 16 01:42:49 2022
+                    &nbsp;
+                </td>
+                <td>&nbsp;Critical (3)&nbsp;</td>
+                <td>&nbsp;Received Response to Broadcast Maintenance Request, But no Un...&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;Tue Aug 16 01:42:00 2022
+                    &nbsp;
+                </td>
+                <td>&nbsp;Critical (3)&nbsp;</td>
+                <td>&nbsp;SSH user logged out.&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;Time Not Established&nbsp;</td>
+                <td>&nbsp;Warning (5)&nbsp;</td>
+                <td>&nbsp;DHCP WARNING - Non-critical field invalid in response ;CM-MAC...&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;Time Not Established&nbsp;</td>
+                <td>&nbsp;Notice (6)&nbsp;</td>
+                <td>&nbsp;Honoring MDD; IP provisioning mode = IPv4&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;Time Not Established&nbsp;</td>
+                <td>&nbsp;Critical (3)&nbsp;</td>
+                <td>&nbsp;No Ranging Response received - T3 time-out;CM-MAC=cc:35:40:e1...&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;Time Not Established&nbsp;</td>
+                <td>&nbsp;Notice (6)&nbsp;</td>
+                <td>&nbsp;WiFi Interface [wl0] set to Channel 1 (Side-Band Channel:N/A)...&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;Tue Aug 16 01:42:49 2022
+                    &nbsp;
+                </td>
+                <td>&nbsp;Critical (3)&nbsp;</td>
+                <td>&nbsp;Received Response to Broadcast Maintenance Request, But no Un...&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;Tue Aug 16 01:42:00 2022
+                    &nbsp;
+                </td>
+                <td>&nbsp;Critical (3)&nbsp;</td>
+                <td>&nbsp;SSH user logged out.&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;Time Not Established&nbsp;</td>
+                <td>&nbsp;Warning (5)&nbsp;</td>
+                <td>&nbsp;DHCP WARNING - Non-critical field invalid in response ;CM-MAC...&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;Time Not Established&nbsp;</td>
+                <td>&nbsp;Notice (6)&nbsp;</td>
+                <td>&nbsp;Honoring MDD; IP provisioning mode = IPv4&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;Time Not Established&nbsp;</td>
+                <td>&nbsp;Critical (3)&nbsp;</td>
+                <td>&nbsp;No Ranging Response received - T3 time-out;CM-MAC=cc:35:40:e1...&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;Time Not Established&nbsp;</td>
+                <td>&nbsp;Notice (6)&nbsp;</td>
+                <td>&nbsp;WiFi Interface [wl0] set to Channel 1 (Side-Band Channel:N/A)...&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;Tue Aug 16 01:42:49 2022
+                    &nbsp;
+                </td>
+                <td>&nbsp;Critical (3)&nbsp;</td>
+                <td>&nbsp;Received Response to Broadcast Maintenance Request, But no Un...&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;Tue Aug 16 01:42:00 2022
+                    &nbsp;
+                </td>
+                <td>&nbsp;Critical (3)&nbsp;</td>
+                <td>&nbsp;SSH user logged out.&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;Time Not Established&nbsp;</td>
+                <td>&nbsp;Warning (5)&nbsp;</td>
+                <td>&nbsp;DHCP WARNING - Non-critical field invalid in response ;CM-MAC...&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;Time Not Established&nbsp;</td>
+                <td>&nbsp;Notice (6)&nbsp;</td>
+                <td>&nbsp;Honoring MDD; IP provisioning mode = IPv4&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;Time Not Established&nbsp;</td>
+                <td>&nbsp;Critical (3)&nbsp;</td>
+                <td>&nbsp;No Ranging Response received - T3 time-out;CM-MAC=cc:35:40:e1...&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;Time Not Established&nbsp;</td>
+                <td>&nbsp;Notice (6)&nbsp;</td>
+                <td>&nbsp;WiFi Interface [wl0] set to Channel 1 (Side-Band Channel:N/A)...&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;Tue Aug 16 01:42:49 2022
+                    &nbsp;
+                </td>
+                <td>&nbsp;Critical (3)&nbsp;</td>
+                <td>&nbsp;Received Response to Broadcast Maintenance Request, But no Un...&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;Tue Aug 16 01:42:00 2022
+                    &nbsp;
+                </td>
+                <td>&nbsp;Critical (3)&nbsp;</td>
+                <td>&nbsp;SSH user logged out.&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;Time Not Established&nbsp;</td>
+                <td>&nbsp;Warning (5)&nbsp;</td>
+                <td>&nbsp;DHCP WARNING - Non-critical field invalid in response ;CM-MAC...&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;Time Not Established&nbsp;</td>
+                <td>&nbsp;Notice (6)&nbsp;</td>
+                <td>&nbsp;Honoring MDD; IP provisioning mode = IPv4&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;Time Not Established&nbsp;</td>
+                <td>&nbsp;Critical (3)&nbsp;</td>
+                <td>&nbsp;No Ranging Response received - T3 time-out;CM-MAC=cc:35:40:e1...&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;Time Not Established&nbsp;</td>
+                <td>&nbsp;Notice (6)&nbsp;</td>
+                <td>&nbsp;WiFi Interface [wl0] set to Channel 1 (Side-Band Channel:N/A)...&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;Tue Aug 16 01:42:49 2022
+                    &nbsp;
+                </td>
+                <td>&nbsp;Critical (3)&nbsp;</td>
+                <td>&nbsp;Received Response to Broadcast Maintenance Request, But no Un...&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;Tue Aug 16 01:42:00 2022
+                    &nbsp;
+                </td>
+                <td>&nbsp;Critical (3)&nbsp;</td>
+                <td>&nbsp;SSH user logged out.&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;Time Not Established&nbsp;</td>
+                <td>&nbsp;Warning (5)&nbsp;</td>
+                <td>&nbsp;DHCP WARNING - Non-critical field invalid in response ;CM-MAC...&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;Time Not Established&nbsp;</td>
+                <td>&nbsp;Notice (6)&nbsp;</td>
+                <td>&nbsp;Honoring MDD; IP provisioning mode = IPv4&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;Time Not Established&nbsp;</td>
+                <td>&nbsp;Critical (3)&nbsp;</td>
+                <td>&nbsp;No Ranging Response received - T3 time-out;CM-MAC=cc:35:40:e1...&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;Time Not Established&nbsp;</td>
+                <td>&nbsp;Notice (6)&nbsp;</td>
+                <td>&nbsp;WiFi Interface [wl0] set to Channel 1 (Side-Band Channel:N/A)...&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;Tue Aug 16 01:42:49 2022
+                    &nbsp;
+                </td>
+                <td>&nbsp;Critical (3)&nbsp;</td>
+                <td>&nbsp;Received Response to Broadcast Maintenance Request, But no Un...&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;Tue Aug 16 01:42:00 2022
+                    &nbsp;
+                </td>
+                <td>&nbsp;Critical (3)&nbsp;</td>
+                <td>&nbsp;SSH user logged out.&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;Time Not Established&nbsp;</td>
+                <td>&nbsp;Warning (5)&nbsp;</td>
+                <td>&nbsp;DHCP WARNING - Non-critical field invalid in response ;CM-MAC...&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;Time Not Established&nbsp;</td>
+                <td>&nbsp;Notice (6)&nbsp;</td>
+                <td>&nbsp;Honoring MDD; IP provisioning mode = IPv4&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;Time Not Established&nbsp;</td>
+                <td>&nbsp;Critical (3)&nbsp;</td>
+                <td>&nbsp;No Ranging Response received - T3 time-out;CM-MAC=cc:35:40:e1...&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;Time Not Established&nbsp;</td>
+                <td>&nbsp;Notice (6)&nbsp;</td>
+                <td>&nbsp;WiFi Interface [wl0] set to Channel 1 (Side-Band Channel:N/A)...&nbsp;</td>
+            </tr>
+            <tr>
+                <td>this</td>
+                <td>is the</td>
+                <td>end</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

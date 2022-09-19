@@ -1,0 +1,127 @@
+.root {
+    top: 0;
+    left: 0;
+    background: linear-gradient(-30deg, #0a0022, #110033);
+    position: absolute;
+    min-width: 100vw;
+    min-height: 100vh;
+}
+
+span, div {
+    color: white;
+}
+
+.basic-flex-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-self: center;
+}
+
+.basic-flex-row {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.flex-centered {
+    align-self: center;
+    align-items: center;
+    align-content: center;
+}
+
+.category-button {
+    padding: 5px 10px 5px 9px;
+    margin: 0px 5px;
+    border-radius: 15px;
+    border: 2px solid #888888;
+    background: linear-gradient(0, #4f4f4f, #6f6f6f, #8f8f8f);
+    background-size: 100% 200%;
+    background-position-y: 50%;
+    color: white;
+    text-align: center;
+    transition: background-position 0.1s linear;
+}
+
+.project-button {
+    padding: 2px 7px 2px 6px;
+    margin: 0px 3px;
+    border-radius: 15px;
+    border: 2px solid #888888;
+    background: linear-gradient(0, #4f4f4f, #6f6f6f, #8f8f8f);
+    background-size: 100% 200%;
+    background-position-y: 50%;
+    color: white;
+    text-align: center;
+    transition: background-position 0.1s linear;
+}
+
+.category-button:hover,
+.project-button:hover {
+    background-position-y: 0;
+    cursor: pointer;
+}
+
+.project-container {
+    /* TODO */
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto 1fr;
+    grid-template-areas:
+        "pe-icon pe-title"
+        "pe-icon pe-tags"
+        "pe-icon ."
+        "pe-body pe-body"
+        "pe-buttons pe-buttons";
+    grid-gap: 10px;
+}
+
+.project-entry-icon {
+    grid-area: pe-icon;
+    width: 96px;
+    height: 96px;
+}
+
+.project-entry-title {
+    grid-area: pe-title;
+    font-size: 2.5em;
+    text-align: left;
+}
+
+.project-entry-body {
+    grid-area: pe-body;
+    font-size: 1.2em;
+}
+
+.project-entry-tags {
+    grid-area: pe-tags;
+    display: flex;
+    flex-direction: row;
+}
+
+.project-entry-tag {
+    font-size: 0.9em;
+    padding: 3px 7px 3px 6px;
+    margin: 0px 3px;
+    border-radius: 15px;
+    border: 2px solid #888888;
+    background: linear-gradient(0, #4f4f4f, #6f6f6f, #328c36, #4bb469);
+    background-size: 100% 300%;
+    background-position-y: 99%;
+    color: white;
+    text-align: center;
+    transition: background-position 0.1s linear;
+    /* TODO */
+}
+
+.project-entry-tag:hover {
+    background-position-y: 0;
+    cursor: cell;
+    border-color: #29652b;
+}
+
+.project-entry-buttons {
+    grid-area: pe-buttons;
+    justify-self: right;
+}

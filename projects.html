@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="css/projects.css">
+    <meta charset="UTF-8">
+    <title>BlazingTwist</title>
+</head>
+<body>
+    <div class="root">
+        <div class="basic-flex-column" style="margin-top: 20px">
+            <div class="basic-flex-row">
+                <div class="category-button" onclick="onClickCategoryAll()">
+                    <span>All</span>
+                </div>
+                <div class="category-button" onclick="onClickCategoryMods()">
+                    <span>Mods</span>
+                </div>
+                <div class="category-button" onclick="onClickCategoryGui()">
+                    <span>GUI</span>
+                </div>
+                <div class="category-button" onclick="onClickCategoryTerminal()">
+                    <span>Terminal</span>
+                </div>
+            </div>
+            <div id="project-list-all" class="basic-flex-column" style="gap: 64px; padding-top: 48px">
+            </div>
+            <div id="project-list-mods" class="basic-flex-column" style="display: none">
+                <span>Project 1 (Mod)</span>
+            </div>
+            <div id="project-list-gui" class="basic-flex-column" style="display: none">
+                <span>Project 2 (GUI Standalone)</span>
+                <span>Project 4 (GUI Standalone)</span>
+            </div>
+            <div id="project-list-cmd" class="basic-flex-column" style="display: none">
+                <span>Project 3 (Terminal)</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- this element is never displayed directly, it's only used to store data -->
+    <div id="project-list" style="display: none">
+        <project>
+            <icon iconPath="img/projects/ItemCounts/icon512.png"></icon>
+            <title text="Item Counts"></title>
+            <tags>
+                <tag text="Java"></tag>
+                <tag text="Mod"></tag>
+                <tag text="Minecraft"></tag>
+            </tags>
+            <descriptionBody>
+                <div>
+                    A Minecraft mod that displays the total amount of items in your inventory on your hot-bar.
+                </div>
+            </descriptionBody>
+            <buttons>
+                <div class="basic-flex-row flex-centered">
+                    <span style="padding-right: 2px">Check it out on</span>
+                    <div class="project-button"
+                         redirect="https://www.curseforge.com/minecraft/mc-mods/item-counts-fabric"
+                         onclick="onClickRedirect(this)">
+                        CurseForge
+                    </div>
+                    <div class="project-button"
+                         redirect="https://github.com/BlazingTwist/ItemCounts"
+                         onclick="onClickRedirect(this)">
+                        GitHub
+                    </div>
+                </div>
+            </buttons>
+        </project>
+        <project>
+            <icon iconPath="img/projects/AntiToolBreak/icon512.png"></icon>
+            <title text="Anti Tool Break"></title>
+            <tags>
+                <tag text="Java"></tag>
+                <tag text="Mod"></tag>
+                <tag text="Minecraft"></tag>
+            </tags>
+            <descriptionBody>
+                <div>
+                    A Minecraft mod that stops you from breaking your precious tools.
+                </div>
+            </descriptionBody>
+            <buttons>
+                <div class="basic-flex-row flex-centered">
+                    <span style="padding-right: 2px">Check it out on</span>
+                    <div class="project-button"
+                         redirect="https://www.curseforge.com/minecraft/mc-mods/anti-tool-break-fabric"
+                         onclick="onClickRedirect(this)">
+                        CurseForge
+                    </div>
+                    <div class="project-button"
+                         redirect="https://github.com/BlazingTwist/AntiToolBreak"
+                         onclick="onClickRedirect(this)">
+                        GitHub
+                    </div>
+                </div>
+            </buttons>
+        </project>
+    </div>
+
+    <script>
+        const getChildrenAsArray = (node) => {
+            let array = [];
+            const childCount = node.children.length;
+            for (let i = 0; i < childCount; i++) {
+                array.push(node.children[i]);
+            }
+            return array;
+        }
+
+        const findByTagName = (nodes, tagName) => {
+            return nodes.find(node => node.tagName.toUpperCase() === tagName.toUpperCase());
+        }
+
+        const buildProjectNode = (projectEntry) => {
+            let projectDiv = document.createElement("div");
+            projectDiv.classList.add("project-container");
+
+            let projectIcon = document.createElement("img");
+            projectIcon.src = projectEntry.iconPath;
+            projectIcon.classList.add("project-entry-icon");
+            projectDiv.appendChild(projectIcon);
+
+            let projectTitle = document.createElement("div");
+            projectTitle.innerHTML = projectEntry.title;
+            projectTitle.classList.add("project-entry-title");
+            projectDiv.appendChild(projectTitle);
+
+            let projectBody = document.createElement("div");
+            projectBody.appendChild(projectEntry.body.cloneNode(true));
+            projectBody.classList.add("project-entry-body")
+            projectDiv.appendChild(projectBody);
+
+            let projectTags = document.createElement("div");
+            projectTags.classList.add("project-entry-tags");
+            for (let tagName of projectEntry.tags) {
+                let singleTag = document.createElement("div");
+                singleTag.classList.add("project-entry-tag");
+                singleTag.innerHTML = tagName;
+                projectTags.appendChild(singleTag);
+            }
+            projectDiv.appendChild(projectTags);
+
+            let projectButtons = document.createElement("div");
+            projectButtons.appendChild(projectEntry.buttons.cloneNode(true));
+            projectButtons.classList.add("project-entry-buttons");
+            projectDiv.appendChild(projectButtons);
+
+            return projectDiv;
+        }
+
+        let projects = [];
+
+        document.addEventListener('DOMContentLoaded', function () {
+            let projectListElement = document.getElementById("project-list");
+            for (let projectNode of getChildrenAsArray(projectListElement)) {
+                let projectChildren = getChildrenAsArray(projectNode);
+
+                let iconNode = findByTagName(projectChildren, "icon");
+                let titleNode = findByTagName(projectChildren, "title");
+                let tagsNode = findByTagName(projectChildren, "tags");
+                let bodyNode = findByTagName(projectChildren, "descriptionBody");
+                let buttonsNode = findByTagName(projectChildren, "buttons");
+
+                let tagNameList = getChildrenAsArray(tagsNode).map(node => node.getAttribute("text"));
+
+                const projectData = {
+                    iconPath: iconNode.getAttribute("iconPath"),
+                    title: titleNode.getAttribute("text"),
+                    body: bodyNode.children[0],
+                    tags: tagNameList,
+                    buttons: buttonsNode.children[0]
+                };
+
+                projects.push({
+                    data: projectData,
+                    node: buildProjectNode(projectData)
+                });
+            }
+
+            console.log(projects)
+            for (let project of projects) {
+                document.getElementById("project-list-all").appendChild(project.node);
+            }
+        });
+
+        function onClickRedirect(button) {
+            window.open(button.getAttribute("redirect"), '_blank').focus();
+        }
+
+        function onClickCategoryAll() {
+            document.getElementById("project-list-all").style.display = null;
+            document.getElementById("project-list-mods").style.display = "none";
+            document.getElementById("project-list-gui").style.display = "none";
+            document.getElementById("project-list-cmd").style.display = "none";
+        }
+
+        function onClickCategoryMods() {
+            document.getElementById("project-list-all").style.display = "none";
+            document.getElementById("project-list-mods").style.display = null;
+            document.getElementById("project-list-gui").style.display = "none";
+            document.getElementById("project-list-cmd").style.display = "none";
+        }
+
+        function onClickCategoryGui() {
+            document.getElementById("project-list-all").style.display = "none";
+            document.getElementById("project-list-mods").style.display = "none";
+            document.getElementById("project-list-gui").style.display = null;
+            document.getElementById("project-list-cmd").style.display = "none";
+        }
+
+        function onClickCategoryTerminal() {
+            document.getElementById("project-list-all").style.display = "none";
+            document.getElementById("project-list-mods").style.display = "none";
+            document.getElementById("project-list-gui").style.display = "none";
+            document.getElementById("project-list-cmd").style.display = null;
+        }
+    </script>
+</body>
+</html>

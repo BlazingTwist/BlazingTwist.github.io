@@ -22,11 +22,20 @@
             let mainContentDiv = document.getElementById("main-content-div");
             let windowHeight = window.innerHeight;
             let windowWidth = window.innerWidth;
-            let scrollHeight = Math.max(0, (mainContentDiv.offsetHeight + (0.2 * windowHeight)) - windowHeight)
-
-            // compute size for spaceTex
+            
+            // space tex img properties
             let spaceTexWidth = 1024;
             let spaceTexHeight = 2887;
+            
+            // treeline img properties
+            let treelineWidth = 3286;
+            let treelineHeight = 685;
+            let treelineVisibleHeight = windowWidth / treelineWidth * treelineHeight;
+            
+            let scrollHeight = Math.max(0, (mainContentDiv.offsetHeight + (0.2 * windowHeight)) - windowHeight)
+            scrollHeight += (treelineVisibleHeight * 2);
+
+            // compute size for spaceTex
             let spaceTexDiv = document.getElementById("space-tex-div");
             let targetSpaceTexWidth = (windowWidth * 2);
             let targetSpaceTexHeight = ((windowHeight + (scrollHeight)) * 2);
@@ -48,8 +57,31 @@
             }
 
             // compute size for treeline
-            let treelineWidth = 3286;
-            let treelineHeight = 685;
+            // this should set the translateZ property such that the image is
+            //  - fully off-screen at the top of the page (top edge of img is touching bottom edge of view)
+            //  - fully on-screen at the bottom of the page (bottom edge of img is touching bottom edge of view)
+            // consequently: visible y translation on page scroll == true image height
+            // thus: translateZ = perspective - (perspective * scrollableHeight / trueImageHeight)
+            // e.g.: translateZ = 300 - (300 * 2500 / 250) = 300 - (300 * 10) = -2700
+            //  the resulting scroll slowdown will then be 10x -> 2500 px scroll translates to 250 px scroll
+            let treelineScaleFactor = scrollHeight / treelineVisibleHeight;
+            let treelineTranslateZ = 300 - (300 * treelineScaleFactor);
+            
+            let treelineDiv = document.getElementById("treeline-div");
+            // currently the image left edge is ((windowWidth / 2) - ((windowWidth / 2) / treelineScaleFactor))
+            //  pixels away from the left edge of the viewport (the same applies to the topEdge using windowHeight)
+            // ((windowWidth / 2) - ((windowWidth / 2) / treelineScaleFactor)) * treelineScaleFactor
+            // = (windowWidth / 2 * treelineScaleFactor) - (windowWidth / 2)
+            // = (windowWidth / 2) * ((treelineScaleFactor) - (1))
+            let treelineOffsetFactor = (treelineScaleFactor - 1) / 2;
+            let treelineWidthOffset = windowWidth * treelineOffsetFactor;
+            let treelineHeightOffset = windowHeight * treelineOffsetFactor;
+            treelineDiv.style.transform = "translateX(-" + (treelineWidthOffset) + "px) translateY(-" + (treelineHeightOffset) + "px) translateZ(" + treelineTranslateZ + "px)";
+            treelineDiv.style.width = "" + (windowWidth * treelineScaleFactor) + "px";
+            treelineDiv.style.height = "" + ((windowHeight + scrollHeight) * treelineScaleFactor) + "px";
+            
+            let treelineImg = document.getElementById("treeline-img");
+            treelineImg.style.marginTop = "" + (windowHeight * 0.9 * treelineScaleFactor) + "px";
         }
 
         document.addEventListener('DOMContentLoaded', function () {
@@ -65,8 +97,8 @@
             <img src="img/spacetex-1024-tileY.png" alt="sky texture" style="width: 100%;"/>
         </picture>
     </div>
-    <div class="parallax_layer parallax_layer--back_overlay" style="height: 100%; width: 100%; font-size: 0;">
-        <img src="img/treeline-stroked-tileX.png" alt="treeline" style="width: 100%; margin-top: 80vh;"/>
+    <div class="parallax_layer parallax_layer--back_overlay" style="height: 100%; width: 100%; font-size: 0;" id="treeline-div">
+        <img src="img/treeline-stroked-tileX.png" alt="treeline" style="width: 100%; margin-top: 80vh;" id="treeline-img"/>
         <div style="margin-top: -1px; width: 100%; height: 100%; background-color: #000000;"></div>
     </div>
     <!--<img src="img/skytex-new-tileY.png" class="sky_background_img parallax_layer parallax_layer--back" alt="sky texture" style="top:563.8vw;"/>-->

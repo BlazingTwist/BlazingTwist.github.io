@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="css/projects.css">
+    <link rel="stylesheet" type="text/css" href="css/animatedListTest.css">
+    <meta charset="UTF-8">
+    <title>Animated List Test</title>
+</head>
+<body>
+
+<script>
+    let insertedNodes = 0;
+
+    const listBusyAnimatingAttribute = "busyAnimating";
+    const awaitingInsertionAttribute = "awaitingInsertion";
+    const awaitingRemovalAttribute = "awaitingRemoval";
+    const animMillis = 200;
+
+    /**
+     * @callback TypeAnimationHandlerCallback
+     * @param {HTMLElement} targetNode
+     * @param {number} targetNodeHeight
+     * @param {number} currentYOffset
+     * @returns {void}
+     */
+
+    /**
+     * @type Object.<string,TypeAnimationHandlerCallback>
+     */
+    const animatedListAnimations = {
+        [animateInflateInsertion.name]: animateInflateInsertion,
+        [animateShiftRightRemove.name]: animateShiftRightRemove
+    };
+
+    function reflow(element) {
+        void (element.offsetHeight);
+    }
+
+    function getInsertionElement() {
+        let nodeToInsert = document.getElementById("generatedElementContainer").children.item(0).cloneNode(true);
+        let targetElementHeight = Math.floor((50 + Math.random() * 100) * 0.5) * 2;
+        nodeToInsert.style.height = "" + targetElementHeight + "px";
+        insertedNodes++;
+        nodeToInsert.innerHTML = nodeToInsert.innerHTML.replace("${nodeIndex}", "" + insertedNodes);
+
+        let paragraphElement = nodeToInsert.children.item(0);
+        paragraphElement.style.margin = "0";
+        paragraphElement.style.transform = "translateY(calc(" + (0.5 * targetElementHeight) + "px - 50%)";
+
+        return nodeToInsert;
+    }
+
+    function onAnimationStarted(animatedList) {
+        animatedList.setAttribute(listBusyAnimatingAttribute, true);
+    }
+
+    /**
+     * @param {HTMLElement} animatedList
+     * @returns {boolean} true if a node awaiting animation was found and animation was started
+     */
+    function checkForNodesToAnimate(animatedList) {
+        let children = animatedList.children;
+        let numChildren = children.length;
+
+        let anyNodesAwaitingAnimation = false;
+        let nodesAwaitingRemoval = [];
+        let nodesAwaitingInsertion = [];
+
+        for (let i = 0; i < numChildren; i++) {
+            let child = children.item(i);
+            if (child.hasAttribute(awaitingRemovalAttribute)) {
+                nodesAwaitingRemoval.push(child);
+                anyNodesAwaitingAnimation = true;
+            }
+            if (child.hasAttribute(awaitingInsertionAttribute)) {
+                nodesAwaitingInsertion.push(child);
+                anyNodesAwaitingAnimation = true;
+            }
+        }
+
+        if (!anyNodesAwaitingAnimation) {
+            return false;
+        }
+
+        onAnimationStarted(animatedList);
+        if (nodesAwaitingRemoval.length > 0) {
+            handleNodeRemovalAnimation(animatedList, nodesAwaitingRemoval);
+        } else {
+            handleNodeAdditionAnimation(animatedList, nodesAwaitingInsertion);
+        }
+
+        return true;
+    }
+
+    function onAnimationFinished(animatedList) {
+        if (checkForNodesToAnimate(animatedList)) {
+            return;
+        }
+
+        // if no more nodes need to be animated
+        animatedList.removeAttribute(listBusyAnimatingAttribute);
+    }
+
+    function animateTransform(targetNode, transformBegin, transformEnd) {
+        targetNode.style.transition = null;
+        targetNode.style.transform = transformBegin;
+        reflow(targetNode);
+        targetNode.style.transition = "all " + animMillis + "ms ease-in-out";
+        targetNode.style.transform = transformEnd;
+    }
+
+    /**
+     * @param {HTMLElement} animatedList
+     * @param {Array.<HTMLElement>} targetNodes
+     */
+    function handleNodeAdditionAnimation(animatedList, targetNodes) {
+        let children = animatedList.children;
+        let numChildren = children.length;
+
+        let currentYOffsetGain = 0;
+        for (let i = 0; i < numChildren; i++) {
+            let child = children.item(i);
+            if (targetNodes.includes(child)) {
+                child.style.display = null;
+                let targetNodeHeight = child.offsetHeight;
+
+                let animationCallback = animatedListAnimations[child.getAttribute(awaitingInsertionAttribute)];
+                child.removeAttribute(awaitingInsertionAttribute);
+                animationCallback(child, targetNodeHeight, currentYOffsetGain);
+
+                currentYOffsetGain += targetNodeHeight;
+            } else if (currentYOffsetGain > 0) {
+                animateTransform(child, "translateY(-" + currentYOffsetGain + "px)", null);
+            }
+        }
+
+        setTimeout(onAnimationFinished, animMillis, animatedList);
+    }
+
+    /**
+     * @param {HTMLElement} animatedList
+     * @param {Array.<HTMLElement>} targetNodes
+     */
+    function handleNodeRemovalAnimation(animatedList, targetNodes) {
+        let children = animatedList.children;
+        let numChildren = children.length;
+
+        let currentYOffsetGain = 0;
+        let movingNodes = [];
+        for (let i = 0; i < numChildren; i++) {
+            let child = children.item(i);
+            if (targetNodes.includes(child)) {
+                let targetNodeHeight = child.offsetHeight;
+                let animationCallback = animatedListAnimations[child.getAttribute(awaitingRemovalAttribute)];
+                animationCallback(child, targetNodeHeight, currentYOffsetGain);
+                currentYOffsetGain += targetNodeHeight;
+            } else if (currentYOffsetGain > 0) {
+                animateTransform(child, null, "translateY(-" + currentYOffsetGain + "px)");
+                movingNodes.push(child);
+            }
+        }
+
+        setTimeout(onNodeRemovalAnimationEnd, animMillis, animatedList, targetNodes, movingNodes);
+    }
+
+    function onNodeRemovalAnimationEnd(animatedList, removedNodes, movingNodes) {
+        let numRemovedNodes = removedNodes.length;
+        for (let i = 0; i < numRemovedNodes; i++) {
+            removedNodes[i].remove();
+        }
+
+        let numMovingNodes = movingNodes.length;
+        for (let i = 0; i < numMovingNodes; i++) {
+            let movingNode = movingNodes[i];
+            movingNode.style.transition = null;
+            movingNode.style.transform = null;
+        }
+
+        onAnimationFinished(animatedList);
+    }
+
+    /**
+     * @type TypeAnimationHandlerCallback
+     *
+     * @function
+     * @param {HTMLElement} targetNode
+     * @param {number} targetNodeHeight
+     * @param {number} currentYOffset
+     * @returns {void}
+     */
+    function animateInflateInsertion(targetNode, targetNodeHeight, currentYOffset) {
+        let targetNodeYOffset = (0.5 * targetNodeHeight) + currentYOffset;
+        animateTransform(targetNode, "translateY(-" + targetNodeYOffset + "px) scaleY(0)", null);
+    }
+
+    /**
+     * @type TypeAnimationHandlerCallback
+     *
+     * @function
+     * @param {HTMLElement} targetNode
+     * @param {number} targetNodeHeight
+     * @param {number} currentYOffset
+     * @returns {void}
+     */
+    function animateShiftRightRemove(targetNode, targetNodeHeight, currentYOffset) {
+        let targetNodeWidth = targetNode.offsetWidth;
+        targetNode.style.zIndex = "-999";
+        animateTransform(targetNode, null, "translateX(" + (0.5 * targetNodeWidth) + "px) translateY(-" + currentYOffset + "px) scaleX(0)");
+    }
+
+    function markNodeForInsertion(nodeToInsert, insertionAnimationID) {
+        nodeToInsert.setAttribute(awaitingInsertionAttribute, insertionAnimationID);
+        nodeToInsert.style.display = "none";
+    }
+
+    function markNodeForRemoval(nodeToRemove, removalAnimationID) {
+        nodeToRemove.setAttribute(awaitingRemovalAttribute, removalAnimationID);
+    }
+
+    function insertNode(animatedList, nodeToInsert, insertionIndex, animationID) {
+        markNodeForInsertion(nodeToInsert, animationID);
+        animatedList.insertBefore(nodeToInsert, animatedList.children.item(insertionIndex));
+        if (!animatedList.hasAttribute(listBusyAnimatingAttribute)) {
+            checkForNodesToAnimate(animatedList);
+        }
+    }
+
+    function removeNode(animatedList, nodeToRemove, animationID) {
+        markNodeForRemoval(nodeToRemove, animationID);
+        if (!animatedList.hasAttribute(listBusyAnimatingAttribute)) {
+            checkForNodesToAnimate(animatedList);
+        }
+    }
+
+    function onClickAddElem() {
+        let insertIndex = parseInt(document.getElementById("insert-index-input").value) + 1;
+        let animatedList = document.getElementById("animatedList");
+        let nodeToInsert = getInsertionElement();
+
+        insertNode(animatedList, nodeToInsert, insertIndex, animateInflateInsertion.name);
+    }
+
+    function onClickRemoveElem(target) {
+        let animatedList = document.getElementById("animatedList");
+        removeNode(animatedList, target, animateShiftRightRemove.name);
+    }
+</script>
+
+<div style="display: none; visibility: hidden;" id="generatedElementContainer">
+    <div class="flex-centered" style="height: 200px; width: 200px;" onclick="onClickRemoveElem(this)">
+        <p>INSERTED NODE #${nodeIndex}</p>
+    </div>
+</div>
+
+<div class="basic-flex-column" style="width: 100%;" id="animatedList">
+    <div class="basic-flex-row flex-centered" style="margin: 10px 0; width: auto; padding: 5px 10px; gap: 10px">
+        <label for="insert-index-input">Insertion Index</label>
+        <input type="number" id="insert-index-input" value="0">
+        <div class="project-entry-tag"
+             onclick="onClickAddElem(this)">
+            Add Element
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

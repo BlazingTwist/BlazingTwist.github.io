@@ -1,0 +1,22 @@
+body {
+    margin: 0;
+}
+
+.basic-flex-column > div {
+    background-color: #4f4f4f;
+    color: white;
+}
+
+.basic-flex-column > div:nth-child(2n) {
+    background-color: #6f6f6f;
+}
+
+p {
+    margin: 50% 0 0 0;
+    transform: translateY(-50%);
+    text-align: center;
+}
+
+div {
+    transition: background-color 150ms ease-in-out;
+}

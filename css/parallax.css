@@ -30,6 +30,7 @@ body {
     padding: 0 0;
     overflow-x: hidden;
     overflow-y: hidden;
+    pointer-events: none;
 }
 
 .parallax_layer--back {
@@ -38,6 +39,7 @@ body {
     padding: 0 0;
     overflow-x: hidden;
     overflow-y: hidden;
+    pointer-events: none;
 }
 
 .title {

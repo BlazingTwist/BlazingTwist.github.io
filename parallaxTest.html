@@ -2,116 +2,31 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" type="text/css" href="css/parallax.css">
+    <script src="js/spaceTexParallax.js"></script>
     <meta charset="UTF-8">
     <title>Parallax Test</title>
 </head>
 <body>
 
-<div id="sky-tex-js-holder" style="display: none; visibility: hidden">
-    <!-- beware! nasty almost-but-not-quite-duplicate of an element contained in 'space-tex-div' -->
-    <picture>
-        <source media="(min-width: 2560px)" srcset="img/spacetex-3072-tileY.png">
-        <source media="(min-width: 1536px)" srcset="img/spacetex-2048-tileY.png">
-        <img src="img/spacetex-1024-tileY.png" alt="sky texture" style="width: 100%; margin-top: -1px"/>
-    </picture>
-</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        SpaceTexParallax.registerElements("main-content-div", "space-tex-div", "treeline-div", 5);
+    })
+</script>
 
 <div class="parallax">
-    <script>
-        function resizeBackground() {
-            let mainContentDiv = document.getElementById("main-content-div");
-            let windowHeight = window.innerHeight;
-            let windowWidth = window.innerWidth;
-
-            let spaceTexDiv = document.getElementById("space-tex-div");
-            let treelineDiv = document.getElementById("treeline-div");
-            let treelineImg = document.getElementById("treeline-img");
-            let treelineBlackbox = document.getElementById("treeline-blackbox");
-
-            // space tex img properties
-            let spaceTexWidth = 1024;
-            let spaceTexHeight = 2887;
-
-            // treeline img properties
-            let treelineWidth = 3286;
-            let treelineHeight = 685;
-            let treelineVisibleHeight = windowWidth / treelineWidth * treelineHeight;
-
-            // for tall screens, overlay treeline on top of main content, for wide screens overlay main content on treeline
-            let baseLayerZIndex = 5;
-            treelineDiv.style.zIndex = baseLayerZIndex + (windowHeight > windowWidth ? 1 : -1);
-
-            let scrollHeight = Math.max(0, (mainContentDiv.offsetHeight + (0.2 * windowHeight)) - windowHeight)
-            scrollHeight += (treelineVisibleHeight * 2);
-
-            // compute size for spaceTex
-            let targetSpaceTexWidth = (windowWidth * 2);
-            let targetSpaceTexHeight = ((windowHeight + (scrollHeight)) * 2);
-
-            spaceTexDiv.style.transform = "translateX(-" + (windowWidth / 2) + "px) translateY(-" + (windowHeight / 2) + "px) translateZ(-300px)";
-            spaceTexDiv.style.width = "" + targetSpaceTexWidth + "px";
-            spaceTexDiv.style.height = "" + targetSpaceTexHeight + "px";
-
-            // repeat image if target height exceeds height of image
-            let currentSingleImageHeight = targetSpaceTexWidth / spaceTexWidth * spaceTexHeight;
-            let coveredHeight = spaceTexDiv.childElementCount * currentSingleImageHeight;
-            if (coveredHeight < targetSpaceTexHeight) {
-                let skyTexHolder = document.getElementById("sky-tex-js-holder");
-                let skyTexImg = skyTexHolder.children.item(0);
-                while (coveredHeight < targetSpaceTexHeight) {
-                    spaceTexDiv.appendChild(skyTexImg.cloneNode(true));
-                    coveredHeight += currentSingleImageHeight;
-                }
-            }
-
-            // compute size for treeline
-            // this should set the translateZ property such that the image is
-            //  - fully off-screen at the top of the page (top edge of img is touching bottom edge of view)
-            //  - fully on-screen at the bottom of the page (bottom edge of img is touching bottom edge of view)
-            // consequently: visible y translation on page scroll == true image height
-            // thus: translateZ = perspective - (perspective * scrollableHeight / trueImageHeight)
-            // e.g.: translateZ = 300 - (300 * 2500 / 250) = 300 - (300 * 10) = -2700
-            //  the resulting scroll slowdown will then be 10x -> 2500 px scroll translates to 250 px scroll
-            let treelineScaleFactor = scrollHeight / treelineVisibleHeight;
-            let treelineTranslateZ = 300 - (300 * treelineScaleFactor);
-
-            // currently the image left edge is ((windowWidth / 2) - ((windowWidth / 2) / treelineScaleFactor))
-            //  pixels away from the left edge of the viewport (the same applies to the topEdge using windowHeight)
-            // ((windowWidth / 2) - ((windowWidth / 2) / treelineScaleFactor)) * treelineScaleFactor
-            // = (windowWidth / 2 * treelineScaleFactor) - (windowWidth / 2)
-            // = (windowWidth / 2) * ((treelineScaleFactor) - (1))
-            let treelineOffsetFactor = (treelineScaleFactor - 1) / 2;
-            let treelineWidthOffset = windowWidth * treelineOffsetFactor;
-            let treelineHeightOffset = windowHeight * treelineOffsetFactor;
-            treelineDiv.style.transform =
-                "translateX(-" + (treelineWidthOffset) + "px) translateY(-" + (treelineHeightOffset) + "px) translateZ(" + treelineTranslateZ + "px)";
-            treelineDiv.style.width = "" + (windowWidth * treelineScaleFactor) + "px";
-            treelineDiv.style.height = "" + ((windowHeight + scrollHeight) * treelineScaleFactor) + "px";
-
-            treelineImg.style.translate = "0px " + (windowHeight * 0.9 * treelineScaleFactor) + "px";
-            treelineBlackbox.style.translate = "0px " + ((windowHeight * 0.9 - 1) * treelineScaleFactor) + "px";
-        }
-
-        document.addEventListener('DOMContentLoaded', function () {
-            resizeBackground()
-            new ResizeObserver(resizeBackground).observe(document.getElementById("main-content-div"));
-        })
-    </script>
-
-    <div class="parallax_layer parallax_layer--back" style="height: 100%; width: 100%; font-size: 0;" id="space-tex-div">
+    <div id="space-tex-div">
         <picture>
             <source media="(min-width: 2560px)" srcset="img/spacetex-3072-tileY.png">
             <source media="(min-width: 1536px)" srcset="img/spacetex-2048-tileY.png">
-            <img src="img/spacetex-1024-tileY.png" alt="sky texture" style="width: 100%;"/>
+            <img src="img/spacetex-1024-tileY.png" alt="sky texture"/>
         </picture>
     </div>
-    <div class="parallax_layer parallax_layer--back_overlay" style="height: 100%; width: 100%; font-size: 0;" id="treeline-div">
-        <img src="img/treeline-stroked-tileX.png" alt="treeline" style="width: 100%;" id="treeline-img"/>
-        <div style="width: 100%; height: 100%; background-color: #000000;" id="treeline-blackbox"></div>
+    <div id="treeline-div">
+        <img src="img/treeline-stroked-tileX.png" alt="treeline"/>
+        <div style="background-color: #000000;"></div>
     </div>
-    <!--<img src="img/skytex-new-tileY.png" class="sky_background_img parallax_layer parallax_layer--back" alt="sky texture" style="top:563.8vw;"/>-->
-    <div class="parallax_layer parallax_layer--base table-container"
-         style="font-size: 1em; color: white; height: max-content;" id="main-content-div">
+    <div class="table-container" style="font-size: 1em; color: white;" id="main-content-div">
         <table class="data-table">
             <tbody>
             <tr>

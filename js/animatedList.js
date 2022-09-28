@@ -29,7 +29,6 @@
      */
     AnimatedList.animateShiftRightRemove = function animateShiftRightRemove(targetNode, targetNodeHeight, currentYOffset) {
         let targetNodeWidth = targetNode.offsetWidth;
-        targetNode.style.zIndex = "-999";
         animateTransform(targetNode, null, "translateX(" + (0.5 * targetNodeWidth) + "px) translateY(-" + currentYOffset + "px) scaleX(0)");
     }
 

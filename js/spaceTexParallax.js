@@ -1,20 +1,4 @@
 ((SpaceTexParallax) => {
-    /***
-     * @param {HTMLElement} container
-     * @param {string} tagString
-     * @returns {HTMLElement|null} child if found / null if not found
-     */
-    function findChildWithTag(container, tagString) {
-        let children = container.children;
-        let numChildren = children.length;
-        for (let i = 0; i < numChildren; i++) {
-            let child = children.item(i);
-            if (child.tagName.toLowerCase() === tagString.toLowerCase()) {
-                return child;
-            }
-        }
-        return null;
-    }
 
     SpaceTexParallax.registerElements = async function registerElements(parallaxContainerID, mainContentDivID, spaceTexDivID, treelineDivID, zIndexOffset) {
         let spaceTexDiv = document.getElementById(spaceTexDivID);
@@ -25,16 +9,18 @@
         spaceTexDiv.style.zIndex = "" + (zIndexOffset - 2);
 
         /** @type {HTMLImageElement|null} */
-        let spaceTexImg = findChildWithTag(findChildWithTag(spaceTexDiv, "picture") || spaceTexDiv, "img");
+        let spaceTexImg = NodeUtils.findChildWithTag(NodeUtils.findChildWithTag(spaceTexDiv, "picture") || spaceTexDiv, "img");
         let spaceTexWidth = 100;
         let spaceTexHeight = 100;
         let spaceTexImgPromise = null;
         if (spaceTexImg) {
             spaceTexImg.style.width = "100%";
             spaceTexImgPromise = new Promise((resolve) => {
+                if (spaceTexImg.complete) {
+                    resolve();
+                    return;
+                }
                 spaceTexImg.onload = () => {
-                    spaceTexWidth = spaceTexImg.naturalWidth;
-                    spaceTexHeight = spaceTexImg.naturalHeight;
                     resolve();
                 }
             })
@@ -50,16 +36,18 @@
         treelineDiv.style.zIndex = "" + (zIndexOffset + 1);
 
         /** @type {HTMLImageElement|null} */
-        let treelineImg = findChildWithTag(treelineDiv, "img");
+        let treelineImg = NodeUtils.findChildWithTag(treelineDiv, "img");
         let treelineWidth = 100;
         let treelineHeight = 100;
         let treelineImgPromise = null;
         if (treelineImg) {
             treelineImg.style.width = "100%";
             treelineImgPromise = new Promise((resolve) => {
+                if (treelineImg.complete) {
+                    resolve();
+                    return;
+                }
                 treelineImg.onload = () => {
-                    treelineWidth = treelineImg.naturalWidth;
-                    treelineHeight = treelineImg.naturalHeight;
                     resolve();
                 }
             })
@@ -67,7 +55,7 @@
             console.warn("failed to find image in treelineDiv with id: '" + treelineDivID + "'");
         }
 
-        let treelineBlackbox = findChildWithTag(treelineDiv, "div");
+        let treelineBlackbox = NodeUtils.findChildWithTag(treelineDiv, "div");
         if (treelineBlackbox) {
             treelineBlackbox.style.width = "100%";
             treelineBlackbox.style.height = "100%";
@@ -80,9 +68,13 @@
 
         if (spaceTexImgPromise !== null) {
             await spaceTexImgPromise;
+            spaceTexWidth = spaceTexImg.naturalWidth;
+            spaceTexHeight = spaceTexImg.naturalHeight;
         }
         if (treelineImgPromise !== null) {
             await treelineImgPromise;
+            treelineWidth = treelineImg.naturalWidth;
+            treelineHeight = treelineImg.naturalHeight;
         }
 
         let parallaxData = {
@@ -157,8 +149,8 @@
         let coveredHeight = spaceTexDiv.childElementCount * currentSingleImageHeight;
         while (coveredHeight < targetSpaceTexHeight) {
             let skyTexImgClone = spaceTexDiv.children.item(0).cloneNode(true);
-            let skyTexImgElement = (skyTexImgClone.tagName === "img" ? skyTexImgClone : findChildWithTag(skyTexImgClone, "img"));
-            skyTexImgElement.style.marginTop = "-1px";
+            let skyTexImgElement = (skyTexImgClone.tagName === "img" ? skyTexImgClone : NodeUtils.findChildWithTag(skyTexImgClone, "img"));
+            skyTexImgElement.style.marginTop = "-3px";
 
             spaceTexDiv.appendChild(skyTexImgClone);
             coveredHeight += currentSingleImageHeight;

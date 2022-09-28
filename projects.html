@@ -1,221 +1,242 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <link rel="stylesheet" type="text/css" href="css/projects.css">
+    <link rel="stylesheet" type="text/css" href="css/parallax.css">
+
+    <script src="https://kit.fontawesome.com/cc47ec522e.js" crossorigin="anonymous"></script>
+
+    <script src="js/nodeUtils.js"></script>
+    <script src="js/animatedList.js"></script>
+    <script src="js/spaceTexParallax.js"></script>
+    <script src="js/projects.js"></script>
+
     <meta charset="UTF-8">
-    <title>BlazingTwist</title>
+    <title>BlazingTwist's Projects</title>
+
 </head>
+
 <body>
-    <div class="root">
-        <div class="basic-flex-column" style="margin-top: 20px">
-            <div class="basic-flex-row">
-                <div class="category-button" onclick="onClickCategoryAll()">
-                    <span>All</span>
+
+<div class="modal-backdrop" id="modal-backdrop" onclick="closeModal()"></div>
+<div id="filter-select-modal" class="filter-select-modal"></div>
+<div class="parallax" id="parallax-container">
+    <div id="space-tex-div">
+        <picture>
+            <source media="(min-width: 2560px)" srcset="img/spacetex-3072-tileY.png">
+            <source media="(min-width: 1536px)" srcset="img/spacetex-2048-tileY.png">
+            <img src="img/spacetex-1024-tileY.png" alt="sky texture"/>
+        </picture>
+    </div>
+    <div id="treeline-div">
+        <img src="img/treeline-stroked-tileX.png" alt="treeline"/>
+        <div style="background-color: #000000;"></div>
+    </div>
+    <div id="main-content-container">
+        <div class="basic-flex-row projects-flex">
+            <div class="nav-container">
+                <input type="text" id="project_name_input" name="project_name_input" placeholder="Search by Title" size="11" style="width: 100%;"
+                       class="text-input">
+                <div class="basic-flex-row flex-centered" style="width: 98%; align-content: space-between; justify-content: space-between;">
+                    <span>Filter by Tags</span>
+                    <i class="fa-square-plus fa-solid fa-xl fa icon-button" style="color: #82ff82;" onclick="openModalHere(this, 'filter-select-modal');"></i>
                 </div>
-                <div class="category-button" onclick="onClickCategoryMods()">
-                    <span>Mods</span>
-                </div>
-                <div class="category-button" onclick="onClickCategoryGui()">
-                    <span>GUI</span>
-                </div>
-                <div class="category-button" onclick="onClickCategoryTerminal()">
-                    <span>Terminal</span>
-                </div>
+                <div id="selected-filters-list" class="basic-flex-column" style="width: 102%;"></div>
             </div>
-            <div id="project-list-all" class="basic-flex-column" style="gap: 64px; padding-top: 48px">
-            </div>
-            <div id="project-list-mods" class="basic-flex-column" style="display: none">
-                <span>Project 1 (Mod)</span>
-            </div>
-            <div id="project-list-gui" class="basic-flex-column" style="display: none">
-                <span>Project 2 (GUI Standalone)</span>
-                <span>Project 4 (GUI Standalone)</span>
-            </div>
-            <div id="project-list-cmd" class="basic-flex-column" style="display: none">
-                <span>Project 3 (Terminal)</span>
+            <div id="project-list-all" class="basic-flex-column project-list" style="gap: 64px; padding-top: 16px">
             </div>
         </div>
     </div>
+</div>
 
-    <!-- this element is never displayed directly, it's only used to store data -->
-    <div id="project-list" style="display: none">
-        <project>
-            <icon iconPath="img/projects/ItemCounts/icon512.png"></icon>
-            <title text="Item Counts"></title>
-            <tags>
-                <tag text="Java"></tag>
-                <tag text="Mod"></tag>
-                <tag text="Minecraft"></tag>
-            </tags>
-            <descriptionBody>
-                <div>
-                    A Minecraft mod that displays the total amount of items in your inventory on your hot-bar.
+<!-- this element is never displayed directly, it's only used to store data -->
+<div id="tags-list" style="display: none;">
+    <category text="Application Type">
+        <tag text="Game Mod"></tag>
+        <tag text="Library"></tag>
+        <tag text="Console App"></tag>
+        <tag text="GUI App"></tag>
+        <tag text="Microcontroller Script"></tag>
+        <tag text="Chromium Extension"></tag>
+    </category>
+    <category text="Language">
+        <tag text="Java"></tag>
+        <tag text="C#"></tag>
+        <tag text="JavaScript"></tag>
+        <tag text="Python"></tag>
+        <tag text="C++"></tag>
+    </category>
+    <category text="Game">
+        <tag text="Minecraft"></tag>
+        <tag text="Streets of Rogue"></tag>
+        <tag text="School Of Dragons"></tag>
+        <tag text="Else Heart.Break()"></tag>
+    </category>
+    <category text="Other">
+        <tag text="Modding Utility"></tag>
+        <tag text="JavaFX Utility"></tag>
+        <tag text="GPU Programming"></tag>
+        <tag text="Rendering"></tag>
+    </category>
+</div>
+
+<!-- this element is never displayed directly, it's only used to store data -->
+<div id="project-list" style="display: none;">
+    <project>
+        <icon iconPath="img/projects/ItemCounts/icon512.png"></icon>
+        <title text="Item Counts"></title>
+        <tags>
+            <tag text="Java"></tag>
+            <tag text="Game Mod"></tag>
+            <tag text="Minecraft"></tag>
+        </tags>
+        <summaryBody>
+            <div class="summary-body">
+                A Minecraft mod that displays the total amount of items in your inventory on your hot-bar.
+            </div>
+        </summaryBody>
+        <descriptionBody>
+            <div class="description-body">
+                Hello World, this is my needlessly long description of my project.
+                Hello World, this is my needlessly long description of my project.
+                Hello World, this is my needlessly long description of my project.
+                Hello World, this is my needlessly long description of my project.
+                Hello World, this is my needlessly long description of my project.
+            </div>
+        </descriptionBody>
+        <buttons>
+            <div class="basic-flex-row flex-centered">
+                <span style="padding-right: 2px">Check it out on</span>
+                <div class="project-button"
+                     redirect="https://www.curseforge.com/minecraft/mc-mods/item-counts-fabric"
+                     onclick="onClickRedirect(this)">
+                    <i class="fa-solid fa-fire-flame-curved button-icon-before-text"></i>
+                    CurseForge
                 </div>
-            </descriptionBody>
-            <buttons>
-                <div class="basic-flex-row flex-centered">
-                    <span style="padding-right: 2px">Check it out on</span>
-                    <div class="project-button"
-                         redirect="https://www.curseforge.com/minecraft/mc-mods/item-counts-fabric"
-                         onclick="onClickRedirect(this)">
-                        CurseForge
-                    </div>
-                    <div class="project-button"
-                         redirect="https://github.com/BlazingTwist/ItemCounts"
-                         onclick="onClickRedirect(this)">
-                        GitHub
-                    </div>
+                <div class="project-button"
+                     redirect="https://github.com/BlazingTwist/ItemCounts"
+                     onclick="onClickRedirect(this)">
+                    <i class="fa-brands fa-github button-icon-before-text"></i>
+                    GitHub
                 </div>
-            </buttons>
-        </project>
-        <project>
-            <icon iconPath="img/projects/AntiToolBreak/icon512.png"></icon>
-            <title text="Anti Tool Break"></title>
-            <tags>
-                <tag text="Java"></tag>
-                <tag text="Mod"></tag>
-                <tag text="Minecraft"></tag>
-            </tags>
-            <descriptionBody>
-                <div>
-                    A Minecraft mod that stops you from breaking your precious tools.
+            </div>
+        </buttons>
+    </project>
+    <project>
+        <icon iconPath="img/projects/AntiToolBreak/icon512.png"></icon>
+        <title text="Anti Tool Break"></title>
+        <tags>
+            <tag text="Java"></tag>
+            <tag text="Game Mod"></tag>
+            <tag text="Minecraft"></tag>
+        </tags>
+        <summaryBody>
+            <div class="summary-body">
+                A Minecraft mod that stops you from breaking your precious tools.
+            </div>
+        </summaryBody>
+        <descriptionBody>
+            <div class="description-body">
+                Hello World, this is my needlessly long description of my project.
+                Hello World, this is my needlessly long description of my project.
+                Hello World, this is my needlessly long description of my project.
+                Hello World, this is my needlessly long description of my project.
+                Hello World, this is my needlessly long description of my project.
+            </div>
+        </descriptionBody>
+        <buttons>
+            <div class="basic-flex-row flex-centered">
+                <span style="padding-right: 2px">Check it out on</span>
+                <div class="project-button"
+                     redirect="https://www.curseforge.com/minecraft/mc-mods/anti-tool-break-fabric"
+                     onclick="onClickRedirect(this)">
+                    <i class="fa-solid fa-fire-flame-curved button-icon-before-text"></i>
+                    CurseForge
                 </div>
-            </descriptionBody>
-            <buttons>
-                <div class="basic-flex-row flex-centered">
-                    <span style="padding-right: 2px">Check it out on</span>
-                    <div class="project-button"
-                         redirect="https://www.curseforge.com/minecraft/mc-mods/anti-tool-break-fabric"
-                         onclick="onClickRedirect(this)">
-                        CurseForge
-                    </div>
-                    <div class="project-button"
-                         redirect="https://github.com/BlazingTwist/AntiToolBreak"
-                         onclick="onClickRedirect(this)">
-                        GitHub
-                    </div>
+                <div class="project-button"
+                     redirect="https://github.com/BlazingTwist/AntiToolBreak"
+                     onclick="onClickRedirect(this)">
+                    <i class="fa-brands fa-github button-icon-before-text"></i>
+                    GitHub
                 </div>
-            </buttons>
-        </project>
-    </div>
+            </div>
+        </buttons>
+    </project>
+</div>
 
-    <script>
-        const getChildrenAsArray = (node) => {
-            let array = [];
-            const childCount = node.children.length;
-            for (let i = 0; i < childCount; i++) {
-                array.push(node.children[i]);
-            }
-            return array;
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        let projectListElement = document.getElementById("project-list");
+        Projects.loadProjects(projectListElement);
+        for (let project of Projects.projectList) {
+            document.getElementById("project-list-all").appendChild(project.node);
         }
 
-        const findByTagName = (nodes, tagName) => {
-            return nodes.find(node => node.tagName.toUpperCase() === tagName.toUpperCase());
+        Projects.populateFilters(document.getElementById("filter-select-modal"), "tags-list", "selected-filters-list");
+
+        SpaceTexParallax.registerElements("parallax-container", "main-content-container", "space-tex-div", "treeline-div", 5);
+    });
+
+    /** @type {HTMLElement|null} */
+    let activeModal = null;
+
+    function openModalHere(targetNode, modalID) {
+        let modalElement = document.getElementById(modalID);
+        let targetBoundingRect = targetNode.getBoundingClientRect();
+        modalElement.style.top = "" + (targetBoundingRect.y + targetBoundingRect.height) + "px";
+        modalElement.style.left = "" + (targetBoundingRect.x + targetBoundingRect.width) + "px";
+        modalElement.setAttribute("opened", true);
+        activeModal = modalElement;
+
+        let modalBackdropElement = document.getElementById("modal-backdrop");
+        modalBackdropElement.setAttribute("enabled", true);
+    }
+
+    function closeModal() {
+        if (activeModal) {
+            activeModal.removeAttribute("opened");
+            activeModal = null;
+
+            let modalBackdropElement = document.getElementById("modal-backdrop");
+            modalBackdropElement.removeAttribute("enabled");
         }
+    }
 
-        const buildProjectNode = (projectEntry) => {
-            let projectDiv = document.createElement("div");
-            projectDiv.classList.add("project-container");
+    function onClickRedirect(button) {
+        window.open(button.getAttribute("redirect"), '_blank').focus();
+    }
 
-            let projectIcon = document.createElement("img");
-            projectIcon.src = projectEntry.iconPath;
-            projectIcon.classList.add("project-entry-icon");
-            projectDiv.appendChild(projectIcon);
+    function onClickCategoryAll() {
+        document.getElementById("project-list-all").style.display = null;
+        document.getElementById("project-list-mods").style.display = "none";
+        document.getElementById("project-list-gui").style.display = "none";
+        document.getElementById("project-list-cmd").style.display = "none";
+    }
 
-            let projectTitle = document.createElement("div");
-            projectTitle.innerHTML = projectEntry.title;
-            projectTitle.classList.add("project-entry-title");
-            projectDiv.appendChild(projectTitle);
+    function onClickCategoryMods() {
+        document.getElementById("project-list-all").style.display = "none";
+        document.getElementById("project-list-mods").style.display = null;
+        document.getElementById("project-list-gui").style.display = "none";
+        document.getElementById("project-list-cmd").style.display = "none";
+    }
 
-            let projectBody = document.createElement("div");
-            projectBody.appendChild(projectEntry.body.cloneNode(true));
-            projectBody.classList.add("project-entry-body")
-            projectDiv.appendChild(projectBody);
+    function onClickCategoryGui() {
+        document.getElementById("project-list-all").style.display = "none";
+        document.getElementById("project-list-mods").style.display = "none";
+        document.getElementById("project-list-gui").style.display = null;
+        document.getElementById("project-list-cmd").style.display = "none";
+    }
 
-            let projectTags = document.createElement("div");
-            projectTags.classList.add("project-entry-tags");
-            for (let tagName of projectEntry.tags) {
-                let singleTag = document.createElement("div");
-                singleTag.classList.add("project-entry-tag");
-                singleTag.innerHTML = tagName;
-                projectTags.appendChild(singleTag);
-            }
-            projectDiv.appendChild(projectTags);
+    function onClickCategoryTerminal() {
+        document.getElementById("project-list-all").style.display = "none";
+        document.getElementById("project-list-mods").style.display = "none";
+        document.getElementById("project-list-gui").style.display = "none";
+        document.getElementById("project-list-cmd").style.display = null;
+    }
+</script>
 
-            let projectButtons = document.createElement("div");
-            projectButtons.appendChild(projectEntry.buttons.cloneNode(true));
-            projectButtons.classList.add("project-entry-buttons");
-            projectDiv.appendChild(projectButtons);
-
-            return projectDiv;
-        }
-
-        let projects = [];
-
-        document.addEventListener('DOMContentLoaded', function () {
-            let projectListElement = document.getElementById("project-list");
-            for (let projectNode of getChildrenAsArray(projectListElement)) {
-                let projectChildren = getChildrenAsArray(projectNode);
-
-                let iconNode = findByTagName(projectChildren, "icon");
-                let titleNode = findByTagName(projectChildren, "title");
-                let tagsNode = findByTagName(projectChildren, "tags");
-                let bodyNode = findByTagName(projectChildren, "descriptionBody");
-                let buttonsNode = findByTagName(projectChildren, "buttons");
-
-                let tagNameList = getChildrenAsArray(tagsNode).map(node => node.getAttribute("text"));
-
-                const projectData = {
-                    iconPath: iconNode.getAttribute("iconPath"),
-                    title: titleNode.getAttribute("text"),
-                    body: bodyNode.children[0],
-                    tags: tagNameList,
-                    buttons: buttonsNode.children[0]
-                };
-
-                projects.push({
-                    data: projectData,
-                    node: buildProjectNode(projectData)
-                });
-            }
-
-            console.log(projects)
-            for (let project of projects) {
-                document.getElementById("project-list-all").appendChild(project.node);
-            }
-        });
-
-        function onClickRedirect(button) {
-            window.open(button.getAttribute("redirect"), '_blank').focus();
-        }
-
-        function onClickCategoryAll() {
-            document.getElementById("project-list-all").style.display = null;
-            document.getElementById("project-list-mods").style.display = "none";
-            document.getElementById("project-list-gui").style.display = "none";
-            document.getElementById("project-list-cmd").style.display = "none";
-        }
-
-        function onClickCategoryMods() {
-            document.getElementById("project-list-all").style.display = "none";
-            document.getElementById("project-list-mods").style.display = null;
-            document.getElementById("project-list-gui").style.display = "none";
-            document.getElementById("project-list-cmd").style.display = "none";
-        }
-
-        function onClickCategoryGui() {
-            document.getElementById("project-list-all").style.display = "none";
-            document.getElementById("project-list-mods").style.display = "none";
-            document.getElementById("project-list-gui").style.display = null;
-            document.getElementById("project-list-cmd").style.display = "none";
-        }
-
-        function onClickCategoryTerminal() {
-            document.getElementById("project-list-all").style.display = "none";
-            document.getElementById("project-list-mods").style.display = "none";
-            document.getElementById("project-list-gui").style.display = "none";
-            document.getElementById("project-list-cmd").style.display = null;
-        }
-    </script>
 </body>
+
 </html>

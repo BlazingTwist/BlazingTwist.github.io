@@ -98,7 +98,7 @@ span, div {
 .tag-select-modal-button {
     font-size: 0.9em;
     padding: 4px 7px 3px 6px;
-    margin: 0px 3px;
+    margin: 0 3px;
     border: 2px outset #666666;
     background: linear-gradient(0, #2f2f2f, #4f4f4f, #328c36, #4bb469);
     background-size: 100% 300%;
@@ -170,7 +170,7 @@ span, div {
 
 .category-button {
     padding: 5px 10px 5px 9px;
-    margin: 0px 5px;
+    margin: 0 5px;
     border-radius: 15px;
     border: 2px solid #888888;
     background: linear-gradient(0, #4f4f4f, #6f6f6f, #8f8f8f);
@@ -182,15 +182,17 @@ span, div {
 }
 
 .project-list {
-    background: linear-gradient(0, hsla(0, 0%, 18%, 0.9), hsla(0, 0%, 12%, 0.9));
+    /*background: linear-gradient(0, hsla(0, 0%, 18%, 0.9), hsla(0, 0%, 12%, 0.9));
     border-radius: 5px;
-    box-shadow: 6px 6px 4px #111111;
+    box-shadow: 6px 6px 4px #111111;*/
+    gap: 64px;
+    padding: 0 32px;
 }
 
 .project-button {
     font-size: 0.85em;
     padding: 2px 7px 2px 6px;
-    margin: 0px 3px;
+    margin: 0 3px;
     border-radius: 3px;
     border: 2px outset #666666;
     background: linear-gradient(0, #2f2f2f, #4f4f4f, #6f6f6f);
@@ -208,9 +210,11 @@ span, div {
 }
 
 .project-container {
-    /*background: linear-gradient(0, #4f4f4f, #6f6f6f);
-    border-radius: 3px;*/
-    margin: 24px 32px;
+    background: linear-gradient(0, hsla(0, 0%, 18%, 0.9), hsla(0, 0%, 12%, 0.9));
+    border-radius: 5px;
+    box-shadow: 6px 6px 4px #111111;
+
+    padding: 24px;
     display: grid;
     grid-template-columns: auto 1fr;
     grid-template-rows: 1.5fr 1fr 1.5fr auto auto;
@@ -231,7 +235,7 @@ span, div {
 
 .project-entry-title {
     grid-area: pe-title;
-    font-size: 2em;
+    font-size: 1.75em;
     text-align: left;
 }
 
@@ -264,7 +268,7 @@ span, div {
 .project-entry-tag {
     font-size: 0.75em;
     padding: 4px 7px 3px 6px;
-    margin: 0px 3px;
+    margin: 0 3px;
     border-radius: 3px;
     border: 2px outset #666666;
     background: linear-gradient(0, #2f2f2f, #4f4f4f, #6f6f6f);

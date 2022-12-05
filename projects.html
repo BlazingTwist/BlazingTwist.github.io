@@ -39,7 +39,7 @@
         <div class="basic-flex-row projects-flex">
             <div class="nav-container">
                 <!--suppress HtmlFormInputWithoutLabel -->
-                <input type="text" id="project_name_input" name="project_name_input" placeholder="Search by Title" size="11" style="width: 100%;"
+                <input type="text" id="project_name_input" name="project_name_input" placeholder="Search by Title or Sub-Title" size="11" style="width: 100%;"
                        class="text-input" onkeydown="if(event.key === 'Enter'){onSearchTitle(this);}" onfocusout="onSearchTitle(this)">
                 <div class="basic-flex-row flex-centered" style="width: 98%; align-content: space-between; justify-content: space-between;">
                     <span>Filter by Tags</span>
@@ -208,7 +208,7 @@
         </tags>
         <summaryBody>
             <div class="summary-body">
-                A Utility for (de)serializing classes to a human readable config file.
+                A Utility for (de)serializing classes to a human-readable config file.
             </div>
         </summaryBody>
         <descriptionBody>
@@ -683,11 +683,11 @@
         let targetBoundingRect = targetNode.getBoundingClientRect();
         modalElement.style.top = "" + (targetBoundingRect.y + targetBoundingRect.height) + "px";
         modalElement.style.left = "" + (targetBoundingRect.x + targetBoundingRect.width) + "px";
-        modalElement.setAttribute("opened", true);
+        modalElement.setAttribute("opened", "true");
         activeModal = modalElement;
 
         let modalBackdropElement = document.getElementById("modal-backdrop");
-        modalBackdropElement.setAttribute("enabled", true);
+        modalBackdropElement.setAttribute("enabled", "true");
     }
 
     function closeModal() {
@@ -700,42 +700,12 @@
         }
     }
 
-    let currentSearchTitle = null;
-
     /**
      * @param {HTMLInputElement} inputNode
      */
     function onSearchTitle(inputNode) {
         let searchTitle = inputNode.value.trim();
-        if (searchTitle.length <= 0) {
-            currentSearchTitle = null;
-            updateProjectFilter();
-            return;
-        }
-
-        if (currentSearchTitle !== searchTitle) {
-            currentSearchTitle = searchTitle;
-            updateProjectFilter();
-        }
-    }
-
-    function updateProjectFilter() {
-        let regExpression = currentSearchTitle != null ? RegExp(currentSearchTitle, 'i') : null;
-        for (let project of Projects.projectList) {
-            let matches = true;
-
-            if (regExpression) {
-                let titleMatches = regExpression.test(project.data.title || "");
-                let summaryMatches = regExpression.test(project.data.summary.textContent || "");
-                matches &&= (titleMatches || summaryMatches);
-            }
-
-            if (matches) {
-                project.node.style.display = null;
-            } else {
-                project.node.style.display = 'None';
-            }
-        }
+        Projects.setSearchText(searchTitle.length <= 0 ? null : searchTitle);
     }
 
     function onClickRedirect(button) {

@@ -14,7 +14,7 @@
     }
 
     /***
-     * @param {Element} container
+     * @param {Element|Node} container
      * @param {string} tagString
      * @returns {Element|null} child if found / null if not found
      */

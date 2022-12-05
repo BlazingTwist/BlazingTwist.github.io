@@ -25,15 +25,20 @@
     /**
      * @typedef TagButtonEntry
      * @property {HTMLElement} selectButton
-     * @property {HTMLElement|null} deselectButton
-     *
-     * maps tags to buttons that control tags
-     * @type {Object<string,TagButtonEntry>}
+     * @property {HTMLElement|Node|null} deselectButton
      */
-    Projects.tagButtons = {};
+
+    /**
+     * maps tags to buttons that control tags
+     * @type {Map<string, TagButtonEntry>}
+     */
+    Projects.tagButtons = new Map();
 
     /** @type {HTMLElement} */
     Projects.selectedFiltersElement = null;
+
+    /** @type {string|null} */
+    Projects.currentSearchText = null;
 
     /**
      * @param {ProjectData} projectEntry
@@ -115,23 +120,25 @@
     }
 
     function onTagSelectButtonPressed(tagName) {
-        let tagButtonObj = Projects.tagButtons[tagName];
+        let tagButtonObj = Projects.tagButtons.get(tagName);
         if (tagButtonObj.selectButton.hasAttribute("checked")) {
             onTagDeselectButtonPressed(tagName);
             return;
         }
 
-        tagButtonObj.selectButton.setAttribute("checked", true);
+        tagButtonObj.selectButton.setAttribute("checked", "true");
         tagButtonObj.deselectButton = tagButtonObj.selectButton.cloneNode(true);
-        tagButtonObj.deselectButton.setAttribute("selected", true);
+        tagButtonObj.deselectButton.setAttribute("selected", "true");
         tagButtonObj.deselectButton.onclick = () => {
             onTagDeselectButtonPressed(tagName);
         };
         AnimatedList.appendNode(Projects.selectedFiltersElement, tagButtonObj.deselectButton);
+
+        updateProjectFilters();
     }
 
     function onTagDeselectButtonPressed(tagName) {
-        let tagButtonObj = Projects.tagButtons[tagName];
+        let tagButtonObj = Projects.tagButtons.get(tagName);
         if (tagButtonObj.deselectButton === null) {
             return;
         }
@@ -139,6 +146,8 @@
         tagButtonObj.selectButton.removeAttribute("checked");
         AnimatedList.removeNode(Projects.selectedFiltersElement, tagButtonObj.deselectButton);
         tagButtonObj.deselectButton = null;
+
+        updateProjectFilters();
     }
 
     /**
@@ -169,12 +178,48 @@
                     onTagSelectButtonPressed(tagString)
                 };
                 tagsFlexbox.appendChild(tagButton);
-                Projects.tagButtons[tagString] = {
+                Projects.tagButtons.set(tagString, {
                     selectButton: tagButton,
                     deselectButton: null,
-                };
+                });
             }
             modalElement.appendChild(tagsFlexbox);
+        }
+    }
+
+    /**
+     * @param {string|null} text
+     */
+    Projects.setSearchText = function (text) {
+        if (Projects.currentSearchText !== text) {
+            Projects.currentSearchText = text;
+            updateProjectFilters();
+        }
+    }
+
+    function updateProjectFilters() {
+        let filterAllowedProjects = Projects.projectList;
+
+        if (Projects.currentSearchText != null) {
+            let regExp = RegExp(Projects.currentSearchText, 'i');
+            filterAllowedProjects = filterAllowedProjects
+                .filter(project => regExp.test(project.data.title || "") || regExp.test(project.data.summary.textContent || ""));
+        }
+
+        let selectedTagNames = Array.from(Projects.tagButtons.entries())
+            .filter(tagEntry => tagEntry[1].selectButton.hasAttribute("checked"))
+            .map(tagEntry => tagEntry[0]);
+        console.log("filtering for tags: " + JSON.stringify(selectedTagNames));
+        if (selectedTagNames.length > 0) {
+            filterAllowedProjects = filterAllowedProjects
+                .filter(project => project.data.tags.filter(tagName => selectedTagNames.includes(tagName)).length === selectedTagNames.length);
+        }
+
+        for (let project of Projects.projectList) {
+            project.node.style.display = 'None';
+        }
+        for (let project of filterAllowedProjects) {
+            project.node.style.display = null;
         }
     }
 

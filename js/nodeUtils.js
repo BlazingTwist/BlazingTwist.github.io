@@ -16,7 +16,7 @@
     /***
      * @param {Element|Node} container
      * @param {string} tagString
-     * @returns {Element|null} child if found / null if not found
+     * @returns {HTMLElement|Element|null} child if found / null if not found
      */
     NodeUtils.findChildWithTag = function findChildWithTag(container, tagString) {
         let children = container.children;

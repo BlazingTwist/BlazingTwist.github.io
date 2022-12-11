@@ -81,6 +81,7 @@
         <tag text="JavaFX Utility"></tag>
         <tag text="GPU Programming"></tag>
         <tag text="Rendering"></tag>
+        <tag text="WIP"></tag>
     </category>
 </div>
 
@@ -199,12 +200,13 @@
         </buttons>
     </project>
     <project>
-        <icon iconPath="TODO"></icon>
+        <icon iconPath="img/projects/wipIcon512.png"></icon>
         <title text="BTConfigUtils"></title>
         <tags>
             <tag text="Library"></tag>
             <tag text="C#"></tag>
             <tag text="Modding Utility"></tag>
+            <tag text="WIP"></tag>
         </tags>
         <summaryBody>
             <div class="summary-body">
@@ -292,8 +294,8 @@
             </div>
         </buttons>
     </project>
-    <project>
-        <icon iconPath="TODO"></icon>
+    <!--<project style="display: none;">
+        <icon iconPath="img/projects/wipIcon512.png"></icon>
         <title text="SoD Offline Server"></title>
         <tags>
             <tag text="Game Mod"></tag>
@@ -301,6 +303,7 @@
             <tag text="Java"></tag>
             <tag text="C#"></tag>
             <tag text="School Of Dragons"></tag>
+            <tag text="WIP"></tag>
         </tags>
         <summaryBody>
             <div class="summary-body">
@@ -324,9 +327,9 @@
                 </div>
             </div>
         </buttons>
-    </project>
+    </project>-->
     <project>
-        <icon iconPath="TODO"></icon>
+        <icon iconPath="img/projects/wipIcon512.png"></icon>
         <title text="Java Game Engine"></title>
         <tags>
             <tag text="GUI App"></tag>
@@ -334,6 +337,7 @@
             <tag text="C++"></tag>
             <tag text="GPU Programming"></tag>
             <tag text="Rendering"></tag>
+            <tag text="WIP"></tag>
         </tags>
         <summaryBody>
             <div class="summary-body">
@@ -342,10 +346,47 @@
         </summaryBody>
         <descriptionBody>
             <div class="description-body">
-                TODO lighting
-                TODO parallax
-                TODO backgrpund image
-                TODO c++ version https://github.com/BlazingTwist/GameEngineProject
+                The result of a 'Game Engine Project' course I took in university.
+                <div>
+                    After the course, I rewrote the <a href="https://github.com/BlazingTwist/GameEngineProject">C++ project</a> in Java.
+                </div>
+                <div style="padding-top: 10px">
+                    Has basic phong shading and support for normal- and height maps.
+                    <div style="padding-top: 10px">
+                        <img src="img/projects/JavaEngine/rendering.png" width="600" alt="example rendering features"
+                             style="width: 100%; max-width: 600px; height: auto;"/>
+                    </div>
+                </div>
+                <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 10px">
+                    <div style="padding-top: 20px">
+                        A simple shader for Sphere particles.
+                        <div style="padding-top: 10px">
+                            <img src="img/projects/JavaEngine/sphereParticles.png" width="400" alt="example sphere particles"
+                                 style="width: 100%; max-width: 400px; height: auto;"/>
+                        </div>
+                    </div>
+                    <div style="padding-top: 20px">
+                        A shader for animated shock-waves.
+                        <div style="padding-top: 10px">
+                            <img src="img/projects/JavaEngine/shockwave.gif" width="400" alt="example shockwave animation"
+                                 style="width: 100%; max-width: 400px; height: auto;"/>
+                        </div>
+                    </div>
+                    <div style="padding-top: 20px">
+                        Also has a basic implementation of marching cubes.
+                        <div style="padding-top: 10px">
+                            <img src="img/projects/JavaEngine/marchingCubes.gif" width="400" alt="example marching cubes animation"
+                                 style="width: 100%; max-width: 400px; height: auto;"/>
+                        </div>
+                    </div>
+                    <div style="padding-top: 20px">
+                        It also generated the background image for this site.
+                        <div style="padding-top: 10px">
+                            <img src="img/projects/JavaEngine/spacetex.png" width="400" alt="example marching cubes animation"
+                                 style="width: 100%; max-width: 400px; height: auto;"/>
+                        </div>
+                    </div>
+                </div>
             </div>
         </descriptionBody>
         <buttons>
@@ -361,7 +402,7 @@
         </buttons>
     </project>
     <project>
-        <icon iconPath="TODO"></icon>
+        <icon iconPath="img/projects/FX_LS/icon512.png"></icon>
         <title text="JavaFX Loading Spinner"></title>
         <tags>
             <tag text="Library"></tag>
@@ -375,7 +416,21 @@
         </summaryBody>
         <descriptionBody>
             <div class="description-body">
-                TODO gif showing icon transitions
+                A JavaFX library for an animated spinner with status indicators.
+                <div style="padding-top: 10px; display: flex; flex-direction: row; flex-wrap: wrap; align-items: center; gap: 10px;">
+                    <img src="img/projects/FX_LS/loadingSpinner.gif" width="256" alt="example spinner animation"
+                         style="width: 100%; max-width: 256px; height: auto;"/>
+                    <div>
+                        Has various features such as:
+                        <ul style="margin-top: 0; padding-left: 2ch;">
+                            <li>progress - use the spinner as a regular loading bar</li>
+                            <li>progress text - show the progress as a text</li>
+                            <li>fill direction - choose between (counter)/clockwise filling</li>
+                            <li>custom animated icons specified as SVG paths</li>
+                            <li>custom animated blending between colors</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </descriptionBody>
         <buttons>
@@ -392,7 +447,7 @@
         </buttons>
     </project>
     <project>
-        <icon iconPath="TODO"></icon>
+        <icon iconPath="img/projects/pdvs/icon512.png"></icon>
         <title text="Windows Volume Mixer API"></title>
         <tags>
             <tag text="Console App"></tag>
@@ -405,7 +460,26 @@
         </summaryBody>
         <descriptionBody>
             <div class="description-body">
-                TODO image showing windows volume mixer
+                <div>
+                    Initially developed as a fix for 'Phantom Dust',<br/>I quickly noticed that this would make for a decent general purpose application.
+                </div>
+                <div style="padding-top: 10px">
+                    For example, you could set your browser volume automatically.
+                    <div style="padding-top: 5px">
+                        <img src="img/projects/pdvs/cli.png" width="600" alt="example cli command and output"
+                             style="width: 100%; max-width: 600px; height: auto;"/>
+                    </div>
+                    <div style="padding-top: 10px">
+                        The above command sets the browser volume level to 33% of the speaker volume level.
+                    </div>
+                    <div style="padding-top: 5px">
+                        <img src="img/projects/pdvs/VolumeMixer.png" width="200" alt="example cli command and output"
+                             style="width: 100%; max-width: 200px; height: auto;"/>
+                    </div>
+                </div>
+                <div style="padding-top: 20px">
+                    Especially useful for UWP applications that reset their volume level to 100% every time they are started.
+                </div>
             </div>
         </descriptionBody>
         <buttons>
@@ -421,7 +495,7 @@
         </buttons>
     </project>
     <project>
-        <icon iconPath="TODO"></icon>
+        <icon iconPath="img/projects/Pico_Keyboard/icon512.jpg"></icon>
         <title text="Pico Keyboard"></title>
         <tags>
             <tag text="Microcontroller Script"></tag>
@@ -434,8 +508,43 @@
         </summaryBody>
         <descriptionBody>
             <div class="description-body">
-                TODO brainsurgery image
-                TODO ghosting example
+                <div>
+                    <div>
+                        A rewrite of my 'TeensyLC Keyboard' for MicroPython.
+                    </div>
+                    <div style="padding-top: 5px">
+                        Comes with more resources to make it easier for anyone to replicate this project.<br/>Such as this matrix generator spreadsheet:
+                    </div>
+                    <div style="padding-top: 10px">
+                        <img src="img/projects/Pico_Keyboard/Matrix.png" width="600" alt="image of the keyboard matrix spreadsheet"
+                             style="width: 100%; max-width: 600px; height: auto;"/>
+                    </div>
+                </div>
+                <div style="padding-top: 20px">
+                    <div>
+                        Also supports detecting and blocking 'ghosted' keys.
+                    </div>
+                    <div style="display: flex; flex-direction: row; flex-wrap: wrap; padding-top: 10px; gap: 10px">
+                        <div>
+                            <img src="img/projects/Pico_Keyboard/Ghosting.png" width="300" alt="image of the keyboard matrix spreadsheet"
+                                 style="width: 100%; max-width: 300px; height: auto;"/>
+                        </div>
+                        <div style="width: 440px">
+                            <div style="padding-bottom: 5px">Ghosting turned out to be a fun geometric problem about detecting rectangles.</div>
+                            For example, given the above Matrix: when 'F' and 'N' are pressed, pressing any of ['G', 'H', 'J'] will cause ghosting on ['M',
+                            'COMMA', 'DOT'] and vice versa.
+                        </div>
+                    </div>
+                </div>
+                <div style="padding-top: 20px">
+                    Here's my final result:<br/>(though I recommend getting a proper circuit board to mount the Pico instead, if possible)
+                    <div style="padding-top: 10px">
+                        <div>
+                            <img src="img/projects/Pico_Keyboard/final.jpg" width="600" alt="image of the keyboard matrix spreadsheet"
+                                 style="width: 100%; max-width: 600px; height: auto;"/>
+                        </div>
+                    </div>
+                </div>
             </div>
         </descriptionBody>
         <buttons>
@@ -451,7 +560,7 @@
         </buttons>
     </project>
     <project>
-        <icon iconPath="TODO"></icon>
+        <icon iconPath="img/projects/Teensy_Keyboard/icon512_v2.jpg"></icon>
         <title text="TeensyLC Keyboard"></title>
         <tags>
             <tag text="Microcontroller Script"></tag>
@@ -464,8 +573,15 @@
         </summaryBody>
         <descriptionBody>
             <div class="description-body">
-                TODO img circuitboard
-                TODO img keyboard
+                <span>Using a TeensyLC to repurpose the keyboard of a broken Notebook</span>
+                <div style="padding-top: 10px">
+                    <img src="img/projects/Teensy_Keyboard/final2.jpg" width="600" alt="image showing the final build"
+                         style="width: 100%; max-width: 600px; height: auto;"/>
+                </div>
+                <div style="padding-top: 20px">
+                    The codebase supports different pin-outs and keyboard matrices, however I recommend taking a look at the 'Pico Keyboard' project instead -
+                    it's cheaper and easier to use.
+                </div>
             </div>
         </descriptionBody>
         <buttons>
@@ -480,12 +596,13 @@
             </div>
         </buttons>
     </project>
-    <project>
-        <icon iconPath="TODO"></icon>
+    <!-- <project style="display: none;">
+        <icon iconPath="img/projects/wipIcon512.png"></icon>
         <title text="SteamGifts Watchlist"></title>
         <tags>
             <tag text="Chromium Extension"></tag>
             <tag text="JavaScript"></tag>
+            <tag text="WIP"></tag>
         </tags>
         <summaryBody>
             <div class="summary-body">
@@ -509,14 +626,15 @@
                 </div>
             </div>
         </buttons>
-    </project>
+    </project> -->
     <project>
-        <icon iconPath="TODO"></icon>
+        <icon iconPath="img/projects/wipIcon512.png"></icon>
         <title text="EH.B() First Person Camera"></title>
         <tags>
             <tag text="Game Mod"></tag>
             <tag text="C#"></tag>
             <tag text="Else Heart.Break()"></tag>
+            <tag text="WIP"></tag>
         </tags>
         <summaryBody>
             <div class="summary-body">
@@ -525,7 +643,12 @@
         </summaryBody>
         <descriptionBody>
             <div class="description-body">
-                TODO some fps images
+                <div>WIP - Converting the Bird's Eye, point and click movement to WASD still needs a lot of polishing.</div>
+                <div style="padding-top: 10px">But here's a pretty screenshot of the camera in action:</div>
+                <div style="padding-top: 10px">
+                    <img src="img/projects/EHB_FirstPerson/FPV_example.jpg" width="600" alt="screenshot of the first person view"
+                         style="width: 100%; max-width: 600px; height: auto;">
+                </div>
             </div>
         </descriptionBody>
         <buttons>
@@ -542,12 +665,13 @@
         </buttons>
     </project>
     <project>
-        <icon iconPath="TODO"></icon>
+        <icon iconPath="img/projects/wipIcon512.png"></icon>
         <title text="EH.B() Puzzle Rework"></title>
         <tags>
             <tag text="Game Mod"></tag>
             <tag text="C#"></tag>
             <tag text="Else Heart.Break()"></tag>
+            <tag text="WIP"></tag>
         </tags>
         <summaryBody>
             <div class="summary-body">
@@ -556,7 +680,13 @@
         </summaryBody>
         <descriptionBody>
             <div class="description-body">
-                TODO uuuuuh
+                WIP - Currently consists of a collection of notes on:
+                <ul style="margin-top: 3px">
+                    <li>Puzzle redesigns to make more use of existing game mechanics</li>
+                    <li>Bug Fixes</li>
+                    <li>Reworks for Game-Mechanics that are too powerful</li>
+                    <li>Extensions to the in-game programming language</li>
+                </ul>
             </div>
         </descriptionBody>
         <buttons>
@@ -573,7 +703,7 @@
         </buttons>
     </project>
     <project>
-        <icon iconPath="TODO"></icon>
+        <icon iconPath="img/projects/SoR_Music_Loader/icon512.png"></icon>
         <title text="SoR Music Loader"></title>
         <tags>
             <tag text="Game Mod"></tag>
@@ -582,13 +712,30 @@
         </tags>
         <summaryBody>
             <div class="summary-body">
-                A mod that allows replacing exising music in-game.
+                A mod that allows adding and replacing of in-game music.
             </div>
         </summaryBody>
         <descriptionBody>
             <div class="description-body">
-                TODO uuuuuh
-                TODO create basic GUI for config
+                <div>
+                    <span>Replace existing music with a simple GUI</span>
+                    <div style="padding-top: 10px">
+                        <img src="img/projects/SoR_Music_Loader/ReplaceExistingGUI.png" width="500" alt="image showing the gui for replacing music"
+                             style="width: 100%; max-width: 500px; height: auto;">
+                    </div>
+                </div>
+                <div style="padding-top: 20px">
+                    <span>Add custom music to use in your Levels and Campaigns</span>
+                    <div style="padding-top: 10px">
+                        <img src="img/projects/SoR_Music_Loader/CustomConfigFile.png" width="400" alt="image showing a config file for custom music"
+                             style="width: 100%; max-width: 400px; height: auto;">
+                        <img src="img/projects/SoR_Music_Loader/CustomCampaignGUI.png" width="400" alt="image showing how to select custom music"
+                             style="width: 100%; max-width: 400px; height: auto;">
+                    </div>
+                </div>
+                <div style="padding-top: 20px">
+                    <span>Also features an <a href="https://github.com/BlazingTwist/SoR_Music_Loader/blob/master/music_loader/api/BTMusicLoader.cs">API</a> to allow non-standard file types or programmatically generated music.</span>
+                </div>
             </div>
         </descriptionBody>
         <buttons>
@@ -596,7 +743,7 @@
                 <span style="padding-right: 2px">Get it on</span>
                 <!-- TODO ModDB / Nexus release -->
                 <div class="project-button"
-                     redirect="https://github.com/BlazingTwist/SoR_Modding/tree/master/SoR_Music_Loader"
+                     redirect="https://github.com/BlazingTwist/SoR_Music_Loader"
                      onclick="onClickRedirect(this)">
                     <i class="fa-brands fa-github button-icon-before-text"></i>
                     GitHub
@@ -622,22 +769,28 @@
                 <div>
                     <span>Debug your Cannons with the Cannon-Tracer</span>
                     <div style="padding-top: 10px">
-                        <img src="img/projects/CannonTracer/examplePOV1.gif" width="400" alt="gif showing the tracer in action">
-                        <img src="img/projects/CannonTracer/examplePOV2.gif" width="400" alt="gif showing the tracer in action">
+                        <img src="img/projects/CannonTracer/examplePOV1.gif" width="400" alt="gif showing the tracer in action"
+                             style="width: 100%; max-width: 400px; height: auto;">
+                        <img src="img/projects/CannonTracer/examplePOV2.gif" width="400" alt="gif showing the tracer in action"
+                             style="width: 100%; max-width: 400px; height: auto;">
                     </div>
                 </div>
                 <div style="padding-top: 20px;">
                     <span>Prototype your Ideas with the Cannon-Tester</span>
                     <div style="padding-top: 10px">
-                        <img src="img/projects/CannonTracer/projectilesCMD.png" width="400" alt="image showing the tester gui for projectiles">
-                        <img src="img/projects/CannonTracer/propellantCMD.png" width="400" alt="image showing the tester gui for propellant">
+                        <img src="img/projects/CannonTracer/projectilesCMD.png" width="400" alt="image showing the tester gui for projectiles"
+                             style="width: 100%; max-width: 400px; height: auto;">
+                        <img src="img/projects/CannonTracer/propellantCMD.png" width="400" alt="image showing the tester gui for propellant"
+                             style="width: 100%; max-width: 400px; height: auto;">
                     </div>
                 </div>
                 <div style="padding-top: 20px">
                     <span>Assume full control with the Config and Hotkey GUI</span>
                     <div style="padding-top: 10px">
-                        <img src="img/projects/CannonTracer/configScreen.png" width="400" alt="image showing the config screen">
-                        <img src="img/projects/CannonTracer/hotkeyMenu.png" width="400" alt="image showing the hotkey menu">
+                        <img src="img/projects/CannonTracer/configScreen.png" width="400" alt="image showing the config screen"
+                             style="width: 100%; max-width: 400px; height: auto;">
+                        <img src="img/projects/CannonTracer/hotkeyMenu.png" width="400" alt="image showing the hotkey menu"
+                             style="width: 100%; max-width: 400px; height: auto;">
                     </div>
                 </div>
             </div>

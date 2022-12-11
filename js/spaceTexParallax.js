@@ -130,8 +130,8 @@
 
         let treelineVisibleHeight = windowWidth / parallaxData.treelineWidth * parallaxData.treelineHeight;
 
-        // for tall screens, overlay treeline on top of main content, for wide screens overlay main content on treeline
-        treelineDiv.style.zIndex = parallaxData.zIndexOffset + (windowHeight > windowWidth ? 1 : -1);
+        // overlay main content over treeline
+        treelineDiv.style.zIndex = (parallaxData.zIndexOffset - 1).toString();
 
         let scrollHeight = Math.max(0, (mainContentDiv.offsetHeight + (0.2 * windowHeight)) - windowHeight)
         scrollHeight += (treelineVisibleHeight * 2);

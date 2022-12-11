@@ -42,10 +42,15 @@
 
     /**
      * @param {ProjectData} projectEntry
+     * @param {NamedNodeMap} attributes
      * @returns {HTMLDivElement}
      */
-    function buildProjectNode(projectEntry) {
+    function buildProjectNode(projectEntry, attributes) {
         let projectDiv = document.createElement("div");
+        for (let i = 0; i < attributes.length; i++) {
+            let attribute = attributes[i];
+            projectDiv.setAttribute(attribute.name, attribute.value);
+        }
         projectDiv.classList.add("project-container");
 
         let projectIcon = document.createElement("img");
@@ -114,7 +119,7 @@
 
             Projects.projectList.push({
                 data: projectData,
-                node: buildProjectNode(projectData)
+                node: buildProjectNode(projectData, projectNode.attributes)
             });
         }
     }

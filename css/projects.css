@@ -2,10 +2,21 @@ body {
     margin: 0;
 }
 
-span, div {
-    color: white;
+span, div, a {
     font-family: Lato, sans-serif;
     font-weight: lighter;
+}
+
+span, div {
+    color: white;
+}
+
+a {
+    color: #cda3ff;
+}
+
+a:hover {
+    color: #a470de;
 }
 
 .modal-backdrop {
@@ -231,6 +242,7 @@ span, div {
     grid-area: pe-icon;
     width: 96px;
     height: 96px;
+    border-radius: 5px;
 }
 
 .project-entry-title {

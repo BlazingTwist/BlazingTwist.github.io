@@ -26,9 +26,9 @@
 <div class="parallax" id="parallax-container">
     <div id="space-tex-div">
         <picture>
-            <source media="(min-width: 2560px)" srcset="img/spacetex-3072-tileY.png">
-            <source media="(min-width: 1536px)" srcset="img/spacetex-2048-tileY.png">
-            <img src="img/spacetex-1024-tileY.png" alt="sky texture"/>
+            <source media="(min-width: 2560px)" srcset="img/spacetex-3072-tileY_90.jpg">
+            <source media="(min-width: 1536px)" srcset="img/spacetex-2048-tileY_90.jpg">
+            <img src="img/spacetex-1024-tileY_90.jpg" alt="sky texture"/>
         </picture>
     </div>
     <div id="treeline-div">
@@ -232,7 +232,7 @@
         </buttons>
     </project>
     <project>
-        <icon iconPath="TODO"></icon>
+        <icon iconPath="img/projects/SoD_DiffExplorer/icon512.jpg"></icon>
         <title text="SoD DiffExplorer"></title>
         <tags>
             <tag text="Console App"></tag>
@@ -263,7 +263,7 @@
         </buttons>
     </project>
     <project>
-        <icon iconPath="TODO"></icon>
+        <icon iconPath="img/projects/SoD_DebugTools/icon512.jpg"></icon>
         <title text="SoD Debug Tools"></title>
         <tags>
             <tag text="Game Mod"></tag>
@@ -272,14 +272,69 @@
         </tags>
         <summaryBody>
             <div class="summary-body">
-                A mod for gathering Data in the game 'School of Draogns'
+                A mod for gathering Data in the game 'School of Dragons'
             </div>
         </summaryBody>
         <descriptionBody>
             <div class="description-body">
-                TODO show console
-                TODO show config
-                TODO highlight some commands and features
+                Developed for the 'School of Dragons' Wiki Team.
+                <div style="padding-top: 20px">
+                    Features a console with IntelliSense-like command completion.
+                    <div style="padding-top: 5px; margin-left: 10px">
+                        <img src="img/projects/SoD_DebugTools/console2.jpg" width="800" alt="console parameter documentation"
+                             style="width: 100%; max-width: 800px; height: auto;"/>
+                    </div>
+                    <div style="padding-top: 5px">
+                        Over <a href="https://github.com/BlazingTwist/SoD_Modding/wiki/Console-Commands">100 fully documented commands</a>, you can even bind
+                        them to Hot-Keys.
+                    </div>
+                    <div style="padding-top: 5px; margin-left: 10px">
+                        <img src="img/projects/SoD_DebugTools/console1.jpg" width="800" alt="console command suggestion"
+                             style="width: 100%; max-width: 800px; height: auto;"/>
+                    </div>
+                </div>
+                <div style="padding-top: 40px; display: flex; flex-direction: row; flex-wrap: wrap; gap: 10px;">
+                    <div style="max-width: 400px">
+                        <div>
+                            Debug instantiated Objects with the <a href="https://github.com/BlazingTwist/SoD_Modding/wiki/Using-the-MemProfiler">Object
+                            Analyzer</a>.
+                        </div>
+                        <div style="padding-top: 5px">
+                            <img src="img/projects/SoD_DebugTools/analyzer1.jpg" width="400" alt="object analyzer object search"
+                                 style="width: 100%; max-width: 400px; height: auto;"/>
+                        </div>
+                    </div>
+                    <div style="max-width: 400px">
+                        <div>
+                            And dig through their innards with reflection based property search.
+                        </div>
+                        <div style="padding-top: 5px">
+                            <img src="img/projects/SoD_DebugTools/analyzer2.jpg" width="400" alt="object analyzer property reflection"
+                                 style="width: 100%; max-width: 400px; height: auto;"/>
+                        </div>
+                    </div>
+                </div>
+                <div style="padding-top: 40px">
+                    The Debug-Camera and AnimationPlayer let you take the <i>best</i> screenshots.
+                    <div style="display: flex; flex-direction: row; flex-wrap: wrap; padding-top: 5px; gap: 10px;">
+                        <div>
+                            <img src="img/projects/SoD_DebugTools/debugCam.jpg" width="400" alt="debug camera screenshot"
+                                 style="width: 100%; max-width: 400px; height: auto;"/>
+                        </div>
+                        <div>
+                            <video width="400" autoplay loop controls style="width: 100%; max-width: 400px; height: auto;">
+                                <source src="img/projects/SoD_DebugTools/animPlayer_400.webm" type="video/webm">
+                            </video>
+                        </div>
+                    </div>
+                </div>
+                <div style="padding-top: 40px;">
+                    Did I mention that it's fully configurable?
+                    <div style="padding-top: 5px">
+                        <img src="img/projects/SoD_DebugTools/config.png" width="810" alt="debug camera screenshot"
+                             style="width: 100%; max-width: 810px; height: auto;"/>
+                    </div>
+                </div>
             </div>
         </descriptionBody>
         <buttons>
@@ -353,7 +408,7 @@
                 <div style="padding-top: 10px">
                     Has basic phong shading and support for normal- and height maps.
                     <div style="padding-top: 10px">
-                        <img src="img/projects/JavaEngine/rendering.png" width="600" alt="example rendering features"
+                        <img src="img/projects/JavaEngine/rendering.jpg" width="600" alt="example rendering features"
                              style="width: 100%; max-width: 600px; height: auto;"/>
                     </div>
                 </div>
@@ -361,28 +416,30 @@
                     <div style="padding-top: 20px">
                         A simple shader for Sphere particles.
                         <div style="padding-top: 10px">
-                            <img src="img/projects/JavaEngine/sphereParticles.png" width="400" alt="example sphere particles"
+                            <img src="img/projects/JavaEngine/sphereParticles.jpg" width="400" alt="example sphere particles"
                                  style="width: 100%; max-width: 400px; height: auto;"/>
                         </div>
                     </div>
                     <div style="padding-top: 20px">
                         A shader for animated shock-waves.
                         <div style="padding-top: 10px">
-                            <img src="img/projects/JavaEngine/shockwave.gif" width="400" alt="example shockwave animation"
-                                 style="width: 100%; max-width: 400px; height: auto;"/>
+                            <video width="400" autoplay loop controls style="width: 100%; max-width: 400px; height: auto;">
+                                <source src="img/projects/JavaEngine/shockwave.webm" type="video/webm">
+                            </video>
                         </div>
                     </div>
                     <div style="padding-top: 20px">
-                        Also has a basic implementation of marching cubes.
+                        A basic implementation of marching cubes.
                         <div style="padding-top: 10px">
-                            <img src="img/projects/JavaEngine/marchingCubes.gif" width="400" alt="example marching cubes animation"
-                                 style="width: 100%; max-width: 400px; height: auto;"/>
+                            <video width="400" autoplay loop controls style="width: 100%; max-width: 400px; height: auto;">
+                                <source src="img/projects/JavaEngine/marchingCubes.webm" type="video/webm">
+                            </video>
                         </div>
                     </div>
                     <div style="padding-top: 20px">
                         It also generated the background image for this site.
                         <div style="padding-top: 10px">
-                            <img src="img/projects/JavaEngine/spacetex.png" width="400" alt="example marching cubes animation"
+                            <img src="img/projects/JavaEngine/spacetex.jpg" width="400" alt="example marching cubes animation"
                                  style="width: 100%; max-width: 400px; height: auto;"/>
                         </div>
                     </div>
@@ -575,7 +632,7 @@
             <div class="description-body">
                 <span>Using a TeensyLC to repurpose the keyboard of a broken Notebook</span>
                 <div style="padding-top: 10px">
-                    <img src="img/projects/Teensy_Keyboard/final2.jpg" width="600" alt="image showing the final build"
+                    <img src="img/projects/Teensy_Keyboard/final.jpg" width="600" alt="image showing the final build"
                          style="width: 100%; max-width: 600px; height: auto;"/>
                 </div>
                 <div style="padding-top: 20px">
@@ -703,7 +760,7 @@
         </buttons>
     </project>
     <project>
-        <icon iconPath="img/projects/SoR_Music_Loader/icon512.png"></icon>
+        <icon iconPath="img/projects/SoR_Music_Loader/icon512.jpg"></icon>
         <title text="SoR Music Loader"></title>
         <tags>
             <tag text="Game Mod"></tag>
@@ -729,7 +786,7 @@
                     <div style="padding-top: 10px">
                         <img src="img/projects/SoR_Music_Loader/CustomConfigFile.png" width="400" alt="image showing a config file for custom music"
                              style="width: 100%; max-width: 400px; height: auto;">
-                        <img src="img/projects/SoR_Music_Loader/CustomCampaignGUI.png" width="400" alt="image showing how to select custom music"
+                        <img src="img/projects/SoR_Music_Loader/CustomCampaignGUI.jpg" width="400" alt="image showing how to select custom music"
                              style="width: 100%; max-width: 400px; height: auto;">
                     </div>
                 </div>
@@ -778,9 +835,9 @@
                 <div style="padding-top: 20px;">
                     <span>Prototype your Ideas with the Cannon-Tester</span>
                     <div style="padding-top: 10px">
-                        <img src="img/projects/CannonTracer/projectilesCMD.png" width="400" alt="image showing the tester gui for projectiles"
+                        <img src="img/projects/CannonTracer/projectilesCMD.jpg" width="400" alt="image showing the tester gui for projectiles"
                              style="width: 100%; max-width: 400px; height: auto;">
-                        <img src="img/projects/CannonTracer/propellantCMD.png" width="400" alt="image showing the tester gui for propellant"
+                        <img src="img/projects/CannonTracer/propellantCMD.jpg" width="400" alt="image showing the tester gui for propellant"
                              style="width: 100%; max-width: 400px; height: auto;">
                     </div>
                 </div>

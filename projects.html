@@ -215,8 +215,26 @@
         </summaryBody>
         <descriptionBody>
             <div class="description-body">
-                TODO example class and config file
-                TODO other api features?
+                <div>
+                    Uses a combination of reflection and optional Attributes to generate human-readable configuration files from C# classes.
+                    <div style="padding-top: 10px">
+                        Attributes provide more control over formatting and can generate documentation for your config files.
+                    </div>
+                    <div style="padding-top: 10px">
+                        Adding default values to the config is as simple as assigning values to the C# fields.
+                    </div>
+                    <div style="padding-top: 10px;">
+                        <img src="img/projects/ConfigTools/configExample.png" width="800" alt="example class and generated config file"
+                             style="width: 100%; max-width: 800px; height: auto;"/>
+                    </div>
+                </div>
+                <div style="padding-top: 20px">
+                    WIP - These features still need to be finished:
+                    <ul style="margin-top: 3px">
+                        <li>Saving to the config must leave user written comments intact, even if the structure changed significantly.</li>
+                        <li>Extensible versioning system which migrates outdated config files. </li>
+                    </ul>
+                </div>
             </div>
         </descriptionBody>
         <buttons>
@@ -241,13 +259,76 @@
         </tags>
         <summaryBody>
             <div class="summary-body">
-                A tool for gathering differences between versions of 'School of Draogns'
+                A tool for gathering differences between versions of 'School of Dragons'
             </div>
         </summaryBody>
         <descriptionBody>
             <div class="description-body">
-                TODO show cli
-                TODO show config system
+                Developed for the 'School of Dragons' Wiki Team.
+                <div style="padding-top: 20px; display: flex; flex-direction: row; flex-wrap: nowrap; gap: 20px;">
+                    <img src="img/projects/SoD_DiffExplorer/programList.png" width="256" alt="gui showing list of programs"
+                         style="width: 100%; max-width: 256px; height: auto; align-self: start;"/>
+                    <div style="max-width: 350px; padding-top: 20px">
+                        <div>
+                            The application loads Server-data, then parses and compares it with previous archives.
+                        </div>
+                        <div style="padding-top: 10px">
+                            Comes with several prebuilt subprograms.
+                        </div>
+                        <div style="padding-top: 10px">
+                            Each subprogram defines where data is loaded from, the format of the data, how to access elements that should be compared,
+                            and basic post-processing along with where the comparison result should be stored.
+                        </div>
+                    </div>
+                </div>
+                <div style="padding-top: 40px">
+                    <div style="display: flex; flex-direction: row; flex-wrap: nowrap; gap: 40px; justify-content: space-between; width: 100%;">
+                        <div style="display: flex; flex-direction: column; width: 100%; justify-content: space-between;">
+                            <div>
+                                <div>
+                                    Subprograms can be configured from inside the GUI with an automatically generated nested structure.
+                                </div>
+                                <div style="padding-top: 10px; padding-left: 10px">
+                                    <img src="img/projects/SoD_DiffExplorer/subProgramConfigGUI.png" width="700" alt="example subprogram config"
+                                         style="width: 100%; height: auto;"/>
+                                </div>
+                                <div style="padding-left: 30px">
+                                    <img src="img/projects/SoD_DiffExplorer/subProgramConfigGUI2.png" width="700" alt="example subprogram config"
+                                         style="width: 100%; height: auto;"/>
+                                </div>
+                            </div>
+                            <div style="display: flex; flex-direction: column; width: 100%; gap: 10px;">
+                                <div>
+                                    Don't like the default styling? How about Green or Magenta?
+                                </div>
+                                <div style="display: flex; flex-direction: row; flex-wrap: nowrap; width: 100%; justify-content: space-evenly; gap: 10px;">
+                                    <div>
+                                        <img src="img/projects/SoD_DiffExplorer/guiStyling_green.png" width="350" alt="example subprogram config"
+                                             style="width: 100%; height: auto;"/>
+                                    </div>
+                                    <div>
+                                        <img src="img/projects/SoD_DiffExplorer/guiStyling_magenta.png" width="350" alt="example subprogram config"
+                                             style="width: 100%; height: auto;"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                Subprogram results can easily be pasted into spreadsheets.
+                                <div style="padding-top: 10px">
+                                    <img src="img/projects/SoD_DiffExplorer/spreadsheet.png" width="700" alt="example subprogram config"
+                                         style="width: 100%; height: auto;"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="max-width: 250px; align-self: start">
+                            You can also create subprograms yourself.
+                            <div style="padding-top: 10px">
+                                <img src="img/projects/SoD_DiffExplorer/subProgramConfig.png" width="250" alt="example subprogram config"
+                                     style="width: 100%; max-width: 250px; height: auto;"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </descriptionBody>
         <buttons>

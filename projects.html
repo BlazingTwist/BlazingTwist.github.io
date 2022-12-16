@@ -102,11 +102,49 @@
         </summaryBody>
         <descriptionBody>
             <div class="description-body">
-                Hello World, this is my needlessly long description of my project.
-                Hello World, this is my needlessly long description of my project.
-                Hello World, this is my needlessly long description of my project.
-                Hello World, this is my needlessly long description of my project.
-                Hello World, this is my needlessly long description of my project.
+                <div>
+                    <div style="display: flex; flex-direction: row; flex-wrap: nowrap; gap: 10px">
+                        <div>
+                            By default, the mod displays the respective totals for items on your hot-bar, as well as separately showing the counts for your main
+                            and off-hand items next to the cross-hair.
+                            <div style="padding-top: 5px">
+                                For items with durability, made of gold, diamond or netherite it shows their color coded durability.
+                            </div>
+                        </div>
+                        <div style="align-self: flex-end">
+                            <img src="img/projects/ItemCounts/defaultCrossHair.png" width="150"
+                                 alt="image showing how item counts are rendered near the cross-hair"
+                                 style="width: 150px; height: auto;"/>
+                        </div>
+                    </div>
+                    <div style="padding-top: 10px">
+                        <img src="img/projects/ItemCounts/defaultHotBar.webp" width="1000" alt="image showing how item counts are rendered near the hot-bar"
+                             style="width: 100%; max-width: 1000px; height: auto;"/>
+                    </div>
+                </div>
+                <div style="padding-top: 40px">
+                    <div style="display: flex; flex-direction: row; flex-wrap: nowrap; gap: 20px">
+                        <div>
+                            The overlay is configurable in:
+                            <ul style="margin-top: 5px">
+                                <li>visibility and position for each slot</li>
+                                <li>optional durability for tools based on their material</li>
+                                <li>conditions for when counts/durability is shown</li>
+                            </ul>
+                            <div>
+                                For example, let's turn off the hot-bar overlay, and configure hot-bar-relative main/off-hand overlays instead:
+                            </div>
+                        </div>
+                        <div style="align-self: flex-end">
+                            <img src="img/projects/ItemCounts/configExample.webp" width="350" alt="example configuration"
+                                 style="width: 350px; height: auto;"/>
+                        </div>
+                    </div>
+                    <div style="padding-top: 10px">
+                        <img src="img/projects/ItemCounts/configuredHotBar.png" width="1000" alt="image showing the example config in action"
+                             style="width: 100%; max-width: 1000px; height: auto;"/>
+                    </div>
+                </div>
             </div>
         </descriptionBody>
         <buttons>
@@ -142,11 +180,35 @@
         </summaryBody>
         <descriptionBody>
             <div class="description-body">
-                Hello World, this is my needlessly long description of my project.
-                Hello World, this is my needlessly long description of my project.
-                Hello World, this is my needlessly long description of my project.
-                Hello World, this is my needlessly long description of my project.
-                Hello World, this is my needlessly long description of my project.
+                <div style="display: flex; flex-direction: row; flex-wrap: nowrap; gap: 20px;">
+                    <div style="display: flex; flex-direction: column; flex-wrap: nowrap; justify-content: space-between; margin-bottom: 20px; gap: 15px;">
+                        <div>
+                            ATB is a fully configurable mod that keeps you from breaking that pickaxe you've spent 2 hours making.
+                        </div>
+                        <div>
+                            <div>
+                                But why stop there?
+                                <div style="padding-top: 5px">
+                                    ATB can stop you from breaking <b>any</b> item with durability in Minecraft.
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            As an example, let's completely disable usage of enchanted, gold, diamond or netherite tools:
+                        </div>
+                    </div>
+                    <div style="align-self: flex-end">
+                        <img src="img/projects/AntiToolBreak/exampleConfig.png" width="300" alt="example configuration"
+                             style="width: 300px; height: auto;"/>
+                    </div>
+                </div>
+                <div style="padding-top: 20px">
+                    <img src="img/projects/AntiToolBreak/usedHotBar.webp" width="1000" alt="hot-bar after trying to use various tools"
+                         style="width: 100%; max-width: 1000px; height: auto;"/>
+                    <div style="padding-top: 10px;">
+                        With the configuration above, you can see that I cannot use the protected items.
+                    </div>
+                </div>
             </div>
         </descriptionBody>
         <buttons>
@@ -232,7 +294,7 @@
                     WIP - These features still need to be finished:
                     <ul style="margin-top: 3px">
                         <li>Saving to the config must leave user written comments intact, even if the structure changed significantly.</li>
-                        <li>Extensible versioning system which migrates outdated config files. </li>
+                        <li>Extensible versioning system which migrates outdated config files.</li>
                     </ul>
                 </div>
             </div>

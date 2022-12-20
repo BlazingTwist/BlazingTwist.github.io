@@ -1,6 +1,6 @@
 ((SpaceTexParallax) => {
 
-    SpaceTexParallax.registerElements = async function registerElements(parallaxContainerID, mainContentDivID, spaceTexDivID, treelineDivID, zIndexOffset) {
+    SpaceTexParallax.registerElements = async function registerElements(parallaxContainerID, mainContentDivID, spaceTexDivID, treelineDivID, footerID, zIndexOffset) {
         let spaceTexDiv = document.getElementById(spaceTexDivID);
         spaceTexDiv.classList.add("parallax_layer", "parallax_layer--back");
         spaceTexDiv.style.height = "100%";
@@ -77,6 +77,8 @@
             treelineHeight = treelineImg.naturalHeight;
         }
 
+        let footerDiv = document.getElementById(footerID);
+
         let parallaxData = {
             parallaxContainer: document.getElementById(parallaxContainerID),
             zIndexOffset,
@@ -91,6 +93,8 @@
             treelineBlackbox,
             treelineWidth,
             treelineHeight,
+
+            footerDiv,
 
             _previousTreelineScale: null,
         }
@@ -193,6 +197,8 @@
             "0px " + (shiftOffset + ((windowHeight * 0.9 - 1) * treelineScaleFactor)) + "px",
             "0px " + ((windowHeight * 0.9 - 1) * treelineScaleFactor) + "px"
         );
+
+        parallaxData.footerDiv.style.transform = "scale(" + treelineScaleFactor + ")";
 
         parallaxData._previousTreelineScale = treelineScaleFactor;
     }

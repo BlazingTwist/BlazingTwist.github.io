@@ -66,7 +66,7 @@
         let projectTags = document.createElement("div");
         projectTags.classList.add("project-entry-tags");
         for (let tagName of projectEntry.tags) {
-            let singleTag = document.createElement("div");
+            let singleTag = document.createElement("button");
             singleTag.classList.add("project-entry-tag");
             singleTag.innerHTML = tagName;
             singleTag.onclick = () => onTagSelectButtonPressed(tagName);
@@ -176,7 +176,7 @@
             let tagsFlexbox = document.createElement("div");
             tagsFlexbox.classList.add("tag-select-flex");
             for (let tagString of tagStrings) {
-                let tagButton = document.createElement("div");
+                let tagButton = document.createElement("button");
                 tagButton.classList.add("tag-select-modal-button");
                 tagButton.innerText = tagString;
                 tagButton.onclick = () => {

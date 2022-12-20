@@ -22,20 +22,16 @@
 <body>
 
 <div class="modal-backdrop" id="modal-backdrop" onclick="closeModal()"></div>
-<div id="filter-select-modal" class="filter-select-modal"></div>
+<div id="filter-select-modal" class="filter-select-modal" onkeydown="if (event.key === 'Escape') {closeModal()}" tabindex="0"></div>
 <div class="parallax" id="parallax-container">
     <div id="space-tex-div">
         <picture>
-            <source media="(min-width: 2560px)" srcset="img/spacetex-3072-tileY_90.jpg">
-            <source media="(min-width: 1536px)" srcset="img/spacetex-2048-tileY_90.jpg">
-            <img src="img/spacetex-1024-tileY_90.jpg" alt="sky texture"/>
+            <source media="(min-width: 2560px)" srcset="img/spacetex-3072-tileY_90.webp">
+            <source media="(min-width: 1536px)" srcset="img/spacetex-2048-tileY_90.webp">
+            <img src="img/spacetex-1024-tileY_90.webp" alt="sky texture"/>
         </picture>
     </div>
-    <div id="treeline-div">
-        <img src="img/treeline-stroked-tileX.png" alt="treeline"/>
-        <div style="background-color: #000000;"></div>
-    </div>
-    <div id="main-content-container">
+    <div id="main-content-container" style="display: flex; flex-direction: column;">
         <div class="basic-flex-row projects-flex">
             <div class="nav-container">
                 <!--suppress HtmlFormInputWithoutLabel -->
@@ -43,11 +39,29 @@
                        class="text-input" onkeydown="if(event.key === 'Enter'){onSearchTitle(this);}" onfocusout="onSearchTitle(this)">
                 <div class="basic-flex-row flex-centered" style="width: 98%; align-content: space-between; justify-content: space-between;">
                     <span>Filter by Tags</span>
-                    <i class="fa-square-plus fa-solid fa-xl fa icon-button" style="color: #82ff82;" onclick="openModalHere(this, 'filter-select-modal');"></i>
+                    <button class="fa-square-plus fa-solid fa-xl fa icon-button" style="color: #82ff82;"
+                            onclick="openModalHere(this, 'filter-select-modal');"></button>
                 </div>
                 <div id="selected-filters-list" class="basic-flex-column" style="width: 102%;"></div>
             </div>
             <div id="project-list-all" class="basic-flex-column project-list">
+            </div>
+        </div>
+    </div>
+    <div id="treeline-div">
+        <img src="img/treeline-stroked-tileX.png" alt="treeline"/>
+        <div style="background-color: #000000;">
+            <div id="treeline-footer" style="font-size:4mm">
+                <div style="display: flex; flex-direction: row; justify-content: center; padding-top: 200px;">
+                    Made with ❤️ by BlazingTwist
+                </div>
+                <a style="display: flex; flex-direction: row; justify-content: center; padding-top: 10px; pointer-events: auto;"
+                   href="https://ko-fi.com/blazingtwist0016">
+                    If you like my work and wish to support me, a
+                    <img src="https://storage.ko-fi.com/cdn/cup-border.png" style="height:14px; padding-left: 0.5ch; padding-right: 0.5ch; padding-top: 3px;"
+                         alt="coffee">
+                    goes a long way
+                </a>
             </div>
         </div>
     </div>
@@ -61,12 +75,14 @@
         <tag text="Console App"></tag>
         <tag text="GUI App"></tag>
         <tag text="Microcontroller Script"></tag>
-        <tag text="Chromium Extension"></tag>
+        <!--TODO finish SteamGifts Watchlist
+            <tag text="Chromium Extension"></tag>-->
     </category>
     <category text="Language">
         <tag text="Java"></tag>
         <tag text="C#"></tag>
-        <tag text="JavaScript"></tag>
+        <!--TODO finish SteamGifts Watchlist
+            <tag text="JavaScript"></tag>-->
         <tag text="Python"></tag>
         <tag text="C++"></tag>
     </category>
@@ -88,61 +104,64 @@
 <!-- this element is never displayed directly, it's only used to store data -->
 <div id="project-list" style="display: none;">
     <project>
-        <icon iconPath="img/projects/ItemCounts/icon512.png"></icon>
-        <title text="Item Counts"></title>
+        <icon iconPath="img/projects/wipIcon512.png"></icon>
+        <title text="Java Game Engine"></title>
         <tags>
+            <tag text="GUI App"></tag>
             <tag text="Java"></tag>
-            <tag text="Game Mod"></tag>
-            <tag text="Minecraft"></tag>
+            <tag text="C++"></tag>
+            <tag text="GPU Programming"></tag>
+            <tag text="Rendering"></tag>
+            <tag text="WIP"></tag>
         </tags>
         <summaryBody>
             <div class="summary-body">
-                A Minecraft mod that displays the total amount of items in your inventory on your hot-bar.
+                A basic OpenGL based Game Engine written in Java.
             </div>
         </summaryBody>
         <descriptionBody>
             <div class="description-body">
+                The result of a 'Game Engine Project' course I took in university.
                 <div>
-                    <div style="display: flex; flex-direction: row; flex-wrap: nowrap; gap: 10px">
-                        <div>
-                            By default, the mod displays the respective totals for items on your hot-bar, as well as separately showing the counts for your main
-                            and off-hand items next to the cross-hair.
-                            <div style="padding-top: 5px">
-                                For items with durability, made of gold, diamond or netherite it shows their color coded durability.
-                            </div>
-                        </div>
-                        <div style="align-self: flex-end">
-                            <img src="img/projects/ItemCounts/defaultCrossHair.png" width="150"
-                                 alt="image showing how item counts are rendered near the cross-hair"
-                                 style="width: 150px; height: auto;"/>
-                        </div>
-                    </div>
+                    After the course, I rewrote the <a href="https://github.com/BlazingTwist/GameEngineProject">C++ project</a> in Java.
+                </div>
+                <div style="padding-top: 10px">
+                    Has basic phong shading and support for normal- and height maps.
                     <div style="padding-top: 10px">
-                        <img src="img/projects/ItemCounts/defaultHotBar.webp" width="1000" alt="image showing how item counts are rendered near the hot-bar"
-                             style="width: 100%; max-width: 1000px; height: auto;"/>
+                        <img src="img/projects/JavaEngine/rendering.webp" width="600" alt="example rendering features"
+                             style="width: 100%; max-width: 600px; height: auto;"/>
                     </div>
                 </div>
-                <div style="padding-top: 40px">
-                    <div style="display: flex; flex-direction: row; flex-wrap: nowrap; gap: 20px">
-                        <div>
-                            The overlay is configurable in:
-                            <ul style="margin-top: 5px">
-                                <li>visibility and position for each slot</li>
-                                <li>optional durability for tools based on their material</li>
-                                <li>conditions for when counts/durability is shown</li>
-                            </ul>
-                            <div>
-                                For example, let's turn off the hot-bar overlay, and configure hot-bar-relative main/off-hand overlays instead:
-                            </div>
-                        </div>
-                        <div style="align-self: flex-end">
-                            <img src="img/projects/ItemCounts/configExample.webp" width="350" alt="example configuration"
-                                 style="width: 350px; height: auto;"/>
+                <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 10px">
+                    <div style="padding-top: 20px">
+                        A simple shader for Sphere particles.
+                        <div style="padding-top: 10px">
+                            <img src="img/projects/JavaEngine/sphereParticles.webp" width="400" alt="example sphere particles"
+                                 style="width: 100%; max-width: 400px; height: auto;"/>
                         </div>
                     </div>
-                    <div style="padding-top: 10px">
-                        <img src="img/projects/ItemCounts/configuredHotBar.png" width="1000" alt="image showing the example config in action"
-                             style="width: 100%; max-width: 1000px; height: auto;"/>
+                    <div style="padding-top: 20px">
+                        A shader for animated shock-waves.
+                        <div style="padding-top: 10px">
+                            <video width="400" autoplay muted playsinline loop style="width: 100%; max-width: 400px; height: auto;">
+                                <source src="img/projects/JavaEngine/shockwave.webm" type="video/webm">
+                            </video>
+                        </div>
+                    </div>
+                    <div style="padding-top: 20px">
+                        A basic implementation of marching cubes.
+                        <div style="padding-top: 10px">
+                            <video width="400" autoplay muted playsinline loop style="width: 100%; max-width: 400px; height: auto;">
+                                <source src="img/projects/JavaEngine/marchingCubes.webm" type="video/webm">
+                            </video>
+                        </div>
+                    </div>
+                    <div style="padding-top: 20px">
+                        It also generated the background image for this site.
+                        <div style="padding-top: 10px">
+                            <img src="img/projects/JavaEngine/spacetex.webp" width="400" alt="example marching cubes animation"
+                                 style="width: 100%; max-width: 400px; height: auto;"/>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -150,63 +169,43 @@
         <buttons>
             <div class="basic-flex-row flex-centered">
                 <span style="padding-right: 2px">Get it on</span>
-                <div class="project-button"
-                     redirect="https://www.curseforge.com/minecraft/mc-mods/item-counts-fabric"
-                     onclick="onClickRedirect(this)">
-                    <i class="fa-solid fa-fire-flame-curved button-icon-before-text"></i>
-                    CurseForge
-                </div>
-                <div class="project-button"
-                     redirect="https://github.com/BlazingTwist/ItemCounts"
-                     onclick="onClickRedirect(this)">
+                <button class="project-button"
+                        redirect="https://github.com/BlazingTwist/JavaGameEngine"
+                        onclick="onClickRedirect(this)">
                     <i class="fa-brands fa-github button-icon-before-text"></i>
                     GitHub
-                </div>
+                </button>
             </div>
         </buttons>
     </project>
     <project>
-        <icon iconPath="img/projects/AntiToolBreak/icon512.png"></icon>
-        <title text="Anti Tool Break"></title>
+        <icon iconPath="img/projects/FX_LS/icon512.png"></icon>
+        <title text="JavaFX Loading Spinner"></title>
         <tags>
+            <tag text="Library"></tag>
             <tag text="Java"></tag>
-            <tag text="Game Mod"></tag>
-            <tag text="Minecraft"></tag>
+            <tag text="JavaFX Utility"></tag>
         </tags>
         <summaryBody>
             <div class="summary-body">
-                A Minecraft mod that stops you from breaking your precious tools.
+                An animated Spinner for JavaFX.
             </div>
         </summaryBody>
         <descriptionBody>
             <div class="description-body">
-                <div style="display: flex; flex-direction: row; flex-wrap: nowrap; gap: 20px;">
-                    <div style="display: flex; flex-direction: column; flex-wrap: nowrap; justify-content: space-between; margin-bottom: 20px; gap: 15px;">
-                        <div>
-                            ATB is a fully configurable mod that keeps you from breaking that pickaxe you've spent 2 hours making.
-                        </div>
-                        <div>
-                            <div>
-                                But why stop there?
-                                <div style="padding-top: 5px">
-                                    ATB can stop you from breaking <b>any</b> item with durability in Minecraft.
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            As an example, let's completely disable usage of enchanted, gold, diamond or netherite tools:
-                        </div>
-                    </div>
-                    <div style="align-self: flex-end">
-                        <img src="img/projects/AntiToolBreak/exampleConfig.png" width="300" alt="example configuration"
-                             style="width: 300px; height: auto;"/>
-                    </div>
-                </div>
-                <div style="padding-top: 20px">
-                    <img src="img/projects/AntiToolBreak/usedHotBar.webp" width="1000" alt="hot-bar after trying to use various tools"
-                         style="width: 100%; max-width: 1000px; height: auto;"/>
-                    <div style="padding-top: 10px;">
-                        With the configuration above, you can see that I cannot use the protected items.
+                A JavaFX library for an animated spinner with status indicators.
+                <div style="padding-top: 10px; display: flex; flex-direction: row; flex-wrap: wrap; align-items: center; gap: 10px;">
+                    <img src="img/projects/FX_LS/loadingSpinner.gif" width="256" alt="example spinner animation"
+                         style="width: 100%; max-width: 256px; height: auto;"/>
+                    <div>
+                        Has various features such as:
+                        <ul style="margin-top: 0;">
+                            <li>progress - use the spinner as a regular loading bar</li>
+                            <li>progress text - show the progress as a text</li>
+                            <li>fill direction - choose between (counter)/clockwise filling</li>
+                            <li>custom animated icons specified as SVG paths</li>
+                            <li>custom animated blending between colors</li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -214,23 +213,18 @@
         <buttons>
             <div class="basic-flex-row flex-centered">
                 <span style="padding-right: 2px">Get it on</span>
-                <div class="project-button"
-                     redirect="https://www.curseforge.com/minecraft/mc-mods/anti-tool-break-fabric"
-                     onclick="onClickRedirect(this)">
-                    <i class="fa-solid fa-fire-flame-curved button-icon-before-text"></i>
-                    CurseForge
-                </div>
-                <div class="project-button"
-                     redirect="https://github.com/BlazingTwist/AntiToolBreak"
-                     onclick="onClickRedirect(this)">
+                <!-- TODO Maven release -->
+                <button class="project-button"
+                        redirect="https://github.com/BlazingTwist/FXLoadingSpinner"
+                        onclick="onClickRedirect(this)">
                     <i class="fa-brands fa-github button-icon-before-text"></i>
                     GitHub
-                </div>
+                </button>
             </div>
         </buttons>
     </project>
     <project>
-        <icon iconPath="TODO"></icon>
+        <icon iconPath="img/projects/BTHU/icon512.webp"></icon>
         <title text="BTHarmonyUtils"></title>
         <tags>
             <tag text="Library"></tag>
@@ -239,25 +233,78 @@
         </tags>
         <summaryBody>
             <div class="summary-body">
-                A wrapper for Harmony to simplify common patterns of Patcher code.
+                An extension to Harmony to aid in C# assembly modding.
             </div>
         </summaryBody>
         <descriptionBody>
             <div class="description-body">
-                TODO typical patcher
-                TODO method reader
-                TODO midfix patches
+                <div>
+                    BTHU is designed to trivialize complex <a href="https://harmony.pardeike.net/articles/patching-transpiler.html"> Harmony Transpiler</a>
+                    operations and shield your mods against version changes.
+                </div>
+                <div style="padding-top: 15px">
+                    The core features encompass
+                    <ul>
+                        <li><a href="https://github.com/BlazingTwist/BTHarmonyUtils/wiki/Midfix-Patch">MidFixes</a> - an extension to Prefix/Postfix patching
+                        </li>
+                        <li><a href="https://github.com/BlazingTwist/BTHarmonyUtils/wiki/Transpiler-Patch">Transpilers</a> - an abstraction for editing CIL
+                            Instructions in Methods
+                        </li>
+                        <li><a href="https://github.com/BlazingTwist/BTHarmonyUtils/wiki/IEnumerator-Patching">IEnumerator patching</a> - patching compiler
+                            generated Enumerators
+                        </li>
+                    </ul>
+                </div>
+                <div style="padding-top: 40px; line-height: 130%">
+                    <div style="display: flex; flex-direction: row; flex-wrap: nowrap; gap: 20px;">
+                        <div style="flex-basis: 0; flex-grow: 1;">
+                            <div>
+                                For example, picture a Pokémon game with this simple Method for taking damage.
+                            </div>
+                            <div style="padding-top: 5px">
+                                You want to add a Pokémon that is immune to minor damage, but still gains Combat Experience
+                            </div>
+                            <div style="padding-top: 5px">
+                                <img src="img/projects/BTHU/takeDamageOriginal.png" width="500" alt="example take damage method, C# code"
+                                     style="width: 100%; max-width: 500px; height: auto;"/>
+                            </div>
+                        </div>
+                        <div style="flex-basis: 0; flex-grow: 1;">
+                            <div>
+                                You can do that with MidFix patching, the resulting Method will look like this.
+                            </div>
+                            <div style="padding-top: 5px">
+                                <img src="img/projects/BTHU/takeDamagePatched.png" width="500" alt="example modified take damage method, C# code"
+                                     style="width: 100%; max-width: 500px; height: auto;"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="padding-top: 20px">
+                        The corresponding MidFix patch looks like this.
+                        <div style="padding-top: 5px">
+                            <img src="img/projects/BTHU/takeDamageMidFix.png" width="900" alt="example mid-fix patch, C# code"
+                                 style="width: 100%; max-width: 900px; height: auto;"/>
+                        </div>
+                    </div>
+                </div>
             </div>
         </descriptionBody>
         <buttons>
             <div class="basic-flex-row flex-centered">
                 <span style="padding-right: 2px">Get it on</span>
-                <div class="project-button"
-                     redirect="https://github.com/BlazingTwist/BTHarmonyUtils"
-                     onclick="onClickRedirect(this)">
+                <button class="project-button"
+                        redirect="https://github.com/BlazingTwist/BTHarmonyUtils"
+                        onclick="onClickRedirect(this)">
                     <i class="fa-brands fa-github button-icon-before-text"></i>
                     GitHub
-                </div>
+                </button>
+                <span style="padding-left: 2px; padding-right: 2px">or read the</span>
+                <button class="project-button"
+                        redirect="https://github.com/BlazingTwist/BTHarmonyUtils/wiki"
+                        onclick="onClickRedirect(this)">
+                    <i class="fa-solid fa-globe"></i>
+                    Wiki
+                </button>
             </div>
         </buttons>
     </project>
@@ -286,13 +333,13 @@
                         Adding default values to the config is as simple as assigning values to the C# fields.
                     </div>
                     <div style="padding-top: 10px;">
-                        <img src="img/projects/ConfigTools/configExample.png" width="800" alt="example class and generated config file"
+                        <img src="img/projects/ConfigTools/configExample.webp" width="800" alt="example class and generated config file"
                              style="width: 100%; max-width: 800px; height: auto;"/>
                     </div>
                 </div>
                 <div style="padding-top: 20px">
                     WIP - These features still need to be finished:
-                    <ul style="margin-top: 3px">
+                    <ul>
                         <li>Saving to the config must leave user written comments intact, even if the structure changed significantly.</li>
                         <li>Extensible versioning system which migrates outdated config files.</li>
                     </ul>
@@ -302,8 +349,143 @@
         <buttons>
             <div class="basic-flex-row flex-centered">
                 <span style="padding-right: 2px">Get it on</span>
+                <button class="project-button"
+                        redirect="https://github.com/BlazingTwist/ConfigTools-for-Unity-Modding"
+                        onclick="onClickRedirect(this)">
+                    <i class="fa-brands fa-github button-icon-before-text"></i>
+                    GitHub
+                </button>
+            </div>
+        </buttons>
+    </project>
+    <project>
+        <icon iconPath="img/projects/pdvs/icon512.webp"></icon>
+        <title text="Windows Volume Mixer API"></title>
+        <tags>
+            <tag text="Console App"></tag>
+            <tag text="C#"></tag>
+        </tags>
+        <summaryBody>
+            <div class="summary-body">
+                A Console App for setting the volume of Applications in Windows.
+            </div>
+        </summaryBody>
+        <descriptionBody>
+            <div class="description-body">
+                <div>
+                    Initially developed as a fix for 'Phantom Dust',<br/>I quickly noticed that this would make for a decent general purpose application.
+                </div>
+                <div style="padding-top: 10px">
+                    For example, you could set your browser volume automatically.
+                    <div style="padding-top: 5px">
+                        <img src="img/projects/pdvs/cli.png" width="600" alt="example cli command and output"
+                             style="width: 100%; max-width: 600px; height: auto;"/>
+                    </div>
+                    <div style="padding-top: 10px">
+                        The above command sets the browser volume level to 33% of the speaker volume level.
+                    </div>
+                    <div style="padding-top: 5px">
+                        <img src="img/projects/pdvs/VolumeMixer.png" width="200" alt="example cli command and output"
+                             style="width: 100%; max-width: 200px; height: auto;"/>
+                    </div>
+                </div>
+                <div style="padding-top: 20px">
+                    Especially useful for UWP applications that reset their volume level to 100% every time they are started.
+                </div>
+            </div>
+        </descriptionBody>
+        <buttons>
+            <div class="basic-flex-row flex-centered">
+                <span style="padding-right: 2px">Get it on</span>
+                <button class="project-button"
+                        redirect="https://github.com/BlazingTwist/PhantomDustVolumeSetter"
+                        onclick="onClickRedirect(this)">
+                    <i class="fa-brands fa-github button-icon-before-text"></i>
+                    GitHub
+                </button>
+            </div>
+        </buttons>
+    </project>
+    <project>
+        <icon iconPath="img/projects/SoD_DebugTools/icon512.jpg"></icon>
+        <title text="SoD Debug Tools"></title>
+        <tags>
+            <tag text="Game Mod"></tag>
+            <tag text="C#"></tag>
+            <tag text="School Of Dragons"></tag>
+        </tags>
+        <summaryBody>
+            <div class="summary-body">
+                A mod for gathering Data in the game 'School of Dragons'
+            </div>
+        </summaryBody>
+        <descriptionBody>
+            <div class="description-body">
+                Developed for the 'School of Dragons' Wiki Team.
+                <div style="padding-top: 20px">
+                    Features a console with IntelliSense-like command completion.
+                    <div style="padding-top: 5px; margin-left: 10px">
+                        <img src="img/projects/SoD_DebugTools/console2.webp" width="800" alt="console parameter documentation"
+                             style="width: 100%; max-width: 800px; height: auto;"/>
+                    </div>
+                    <div style="padding-top: 5px">
+                        Over <a href="https://github.com/BlazingTwist/SoD_Modding/wiki/Console-Commands">100 fully documented commands</a>, you can even bind
+                        them to Hot-Keys.
+                    </div>
+                    <div style="padding-top: 5px; margin-left: 10px">
+                        <img src="img/projects/SoD_DebugTools/console1.webp" width="800" alt="console command suggestion"
+                             style="width: 100%; max-width: 800px; height: auto;"/>
+                    </div>
+                </div>
+                <div style="padding-top: 40px; display: flex; flex-direction: row; flex-wrap: wrap; gap: 10px;">
+                    <div style="max-width: 400px">
+                        <div>
+                            Debug instantiated Objects with the <a href="https://github.com/BlazingTwist/SoD_Modding/wiki/Using-the-MemProfiler">Object
+                            Analyzer</a>.
+                        </div>
+                        <div style="padding-top: 5px">
+                            <img src="img/projects/SoD_DebugTools/analyzer1.webp" width="400" alt="object analyzer object search"
+                                 style="width: 100%; max-width: 400px; height: auto;"/>
+                        </div>
+                    </div>
+                    <div style="max-width: 400px">
+                        <div>
+                            And dig through their innards with reflection based property search.
+                        </div>
+                        <div style="padding-top: 5px">
+                            <img src="img/projects/SoD_DebugTools/analyzer2.webp" width="400" alt="object analyzer property reflection"
+                                 style="width: 100%; max-width: 400px; height: auto;"/>
+                        </div>
+                    </div>
+                </div>
+                <div style="padding-top: 40px">
+                    The Debug-Camera and AnimationPlayer let you take the <i>best</i> screenshots.
+                    <div style="display: flex; flex-direction: row; flex-wrap: wrap; padding-top: 5px; gap: 10px;">
+                        <div>
+                            <img src="img/projects/SoD_DebugTools/debugCam.webp" width="400" alt="debug camera screenshot"
+                                 style="width: 100%; max-width: 400px; height: auto;"/>
+                        </div>
+                        <div>
+                            <video width="400" autoplay muted playsinline loop style="width: 100%; max-width: 400px; height: auto;">
+                                <source src="img/projects/SoD_DebugTools/anim_player_400.webm" type="video/webm">
+                            </video>
+                        </div>
+                    </div>
+                </div>
+                <div style="padding-top: 40px;">
+                    Did I mention that it's fully configurable?
+                    <div style="padding-top: 5px">
+                        <img src="img/projects/SoD_DebugTools/config.webp" width="810" alt="debug camera screenshot"
+                             style="width: 100%; max-width: 810px; height: auto;"/>
+                    </div>
+                </div>
+            </div>
+        </descriptionBody>
+        <buttons>
+            <div class="basic-flex-row flex-centered">
+                <span style="padding-right: 2px">Get it on</span>
                 <div class="project-button"
-                     redirect="https://github.com/BlazingTwist/ConfigTools-for-Unity-Modding"
+                     redirect="https://github.com/BlazingTwist/SoD_Modding"
                      onclick="onClickRedirect(this)">
                     <i class="fa-brands fa-github button-icon-before-text"></i>
                     GitHub
@@ -377,7 +559,7 @@
                             <div>
                                 Subprogram results can easily be pasted into spreadsheets.
                                 <div style="padding-top: 10px">
-                                    <img src="img/projects/SoD_DiffExplorer/spreadsheet.png" width="700" alt="example subprogram config"
+                                    <img src="img/projects/SoD_DiffExplorer/spreadsheet.webp" width="700" alt="example subprogram config"
                                          style="width: 100%; height: auto;"/>
                                 </div>
                             </div>
@@ -385,7 +567,7 @@
                         <div style="max-width: 250px; align-self: start">
                             You can also create subprograms yourself.
                             <div style="padding-top: 10px">
-                                <img src="img/projects/SoD_DiffExplorer/subProgramConfig.png" width="250" alt="example subprogram config"
+                                <img src="img/projects/SoD_DiffExplorer/subProgramConfig.webp" width="250" alt="example subprogram config"
                                      style="width: 100%; max-width: 250px; height: auto;"/>
                             </div>
                         </div>
@@ -406,76 +588,123 @@
         </buttons>
     </project>
     <project>
-        <icon iconPath="img/projects/SoD_DebugTools/icon512.jpg"></icon>
-        <title text="SoD Debug Tools"></title>
+        <icon iconPath="img/projects/CannonTracer/icon512.webp"></icon>
+        <title text="Minecraft Cannon Inspector"></title>
         <tags>
             <tag text="Game Mod"></tag>
-            <tag text="C#"></tag>
-            <tag text="School Of Dragons"></tag>
+            <tag text="Java"></tag>
+            <tag text="Minecraft"></tag>
         </tags>
         <summaryBody>
             <div class="summary-body">
-                A mod for gathering Data in the game 'School of Dragons'
+                Entity tracing and other QoL features for building Cannons.
             </div>
         </summaryBody>
         <descriptionBody>
             <div class="description-body">
-                Developed for the 'School of Dragons' Wiki Team.
-                <div style="padding-top: 20px">
-                    Features a console with IntelliSense-like command completion.
-                    <div style="padding-top: 5px; margin-left: 10px">
-                        <img src="img/projects/SoD_DebugTools/console2.jpg" width="800" alt="console parameter documentation"
-                             style="width: 100%; max-width: 800px; height: auto;"/>
-                    </div>
-                    <div style="padding-top: 5px">
-                        Over <a href="https://github.com/BlazingTwist/SoD_Modding/wiki/Console-Commands">100 fully documented commands</a>, you can even bind
-                        them to Hot-Keys.
-                    </div>
-                    <div style="padding-top: 5px; margin-left: 10px">
-                        <img src="img/projects/SoD_DebugTools/console1.jpg" width="800" alt="console command suggestion"
-                             style="width: 100%; max-width: 800px; height: auto;"/>
+                <div>
+                    <span>Debug your Cannons with the Cannon-Tracer</span>
+                    <div style="padding-top: 10px">
+                        <img src="img/projects/CannonTracer/examplePOV1.webp" width="400" alt="gif showing the tracer in action"
+                             style="width: 100%; max-width: 400px; height: auto;">
+                        <img src="img/projects/CannonTracer/examplePOV2.webp" width="400" alt="gif showing the tracer in action"
+                             style="width: 100%; max-width: 400px; height: auto;">
                     </div>
                 </div>
-                <div style="padding-top: 40px; display: flex; flex-direction: row; flex-wrap: wrap; gap: 10px;">
-                    <div style="max-width: 400px">
+                <div style="padding-top: 20px;">
+                    <span>Prototype your Ideas with the Cannon-Tester</span>
+                    <div style="padding-top: 10px">
+                        <img src="img/projects/CannonTracer/projectilesCMD.webp" width="400" alt="image showing the tester gui for projectiles"
+                             style="width: 100%; max-width: 400px; height: auto;">
+                        <img src="img/projects/CannonTracer/propellantCMD.webp" width="400" alt="image showing the tester gui for propellant"
+                             style="width: 100%; max-width: 400px; height: auto;">
+                    </div>
+                </div>
+                <div style="padding-top: 20px">
+                    <span>Assume full control with the Config and Hotkey GUI</span>
+                    <div style="padding-top: 10px">
+                        <img src="img/projects/CannonTracer/configScreen.webp" width="400" alt="image showing the config screen"
+                             style="width: 100%; max-width: 400px; height: auto;">
+                        <img src="img/projects/CannonTracer/hotkeyMenu.webp" width="400" alt="image showing the hotkey menu"
+                             style="width: 100%; max-width: 400px; height: auto;">
+                    </div>
+                </div>
+            </div>
+        </descriptionBody>
+        <buttons>
+            <div class="basic-flex-row flex-centered">
+                <span style="padding-right: 2px">Get in on GitHub </span>
+                <button class="project-button"
+                        redirect="https://github.com/BlazingTwist/CannonTracer"
+                        onclick="onClickRedirect(this)">
+                    <i class="fa-brands fa-github button-icon-before-text"></i>
+                    Client Mod
+                </button>
+                <button class="project-button"
+                        redirect="https://github.com/BlazingTwist/JumperUtils"
+                        onclick="onClickRedirect(this)">
+                    <i class="fa-brands fa-github button-icon-before-text"></i>
+                    Server Plugin
+                </button>
+            </div>
+        </buttons>
+    </project>
+    <project>
+        <icon iconPath="img/projects/ItemCounts/icon512.webp"></icon>
+        <title text="Item Counts"></title>
+        <tags>
+            <tag text="Java"></tag>
+            <tag text="Game Mod"></tag>
+            <tag text="Minecraft"></tag>
+        </tags>
+        <summaryBody>
+            <div class="summary-body">
+                A Minecraft mod that displays the total amount of items in your inventory on your hot-bar.
+            </div>
+        </summaryBody>
+        <descriptionBody>
+            <div class="description-body">
+                <div>
+                    <div style="display: flex; flex-direction: row; flex-wrap: nowrap; gap: 10px">
                         <div>
-                            Debug instantiated Objects with the <a href="https://github.com/BlazingTwist/SoD_Modding/wiki/Using-the-MemProfiler">Object
-                            Analyzer</a>.
+                            By default, the mod displays the respective totals for items on your hot-bar, as well as separately showing the counts for your main
+                            and off-hand items next to the cross-hair.
+                            <div style="padding-top: 5px">
+                                For items with durability, made of gold, diamond or netherite it shows their color coded durability.
+                            </div>
                         </div>
-                        <div style="padding-top: 5px">
-                            <img src="img/projects/SoD_DebugTools/analyzer1.jpg" width="400" alt="object analyzer object search"
-                                 style="width: 100%; max-width: 400px; height: auto;"/>
+                        <div style="align-self: flex-end">
+                            <img src="img/projects/ItemCounts/defaultCrossHair.png" width="150"
+                                 alt="image showing how item counts are rendered near the cross-hair"
+                                 style="width: 150px; height: auto;"/>
                         </div>
                     </div>
-                    <div style="max-width: 400px">
-                        <div>
-                            And dig through their innards with reflection based property search.
-                        </div>
-                        <div style="padding-top: 5px">
-                            <img src="img/projects/SoD_DebugTools/analyzer2.jpg" width="400" alt="object analyzer property reflection"
-                                 style="width: 100%; max-width: 400px; height: auto;"/>
-                        </div>
+                    <div style="padding-top: 10px">
+                        <img src="img/projects/ItemCounts/defaultHotBar.webp" width="1000" alt="image showing how item counts are rendered near the hot-bar"
+                             style="width: 100%; max-width: 1000px; height: auto;"/>
                     </div>
                 </div>
                 <div style="padding-top: 40px">
-                    The Debug-Camera and AnimationPlayer let you take the <i>best</i> screenshots.
-                    <div style="display: flex; flex-direction: row; flex-wrap: wrap; padding-top: 5px; gap: 10px;">
+                    <div style="display: flex; flex-direction: row; flex-wrap: nowrap; gap: 20px">
                         <div>
-                            <img src="img/projects/SoD_DebugTools/debugCam.jpg" width="400" alt="debug camera screenshot"
-                                 style="width: 100%; max-width: 400px; height: auto;"/>
+                            The overlay is configurable in:
+                            <ul>
+                                <li>visibility and position for each slot</li>
+                                <li>optional durability for tools based on their material</li>
+                                <li>conditions for when counts/durability is shown</li>
+                            </ul>
+                            <div>
+                                For example, let's turn off the hot-bar overlay, and configure hot-bar-relative main/off-hand overlays instead:
+                            </div>
                         </div>
-                        <div>
-                            <video width="400" autoplay loop controls style="width: 100%; max-width: 400px; height: auto;">
-                                <source src="img/projects/SoD_DebugTools/animPlayer_400.webm" type="video/webm">
-                            </video>
+                        <div style="align-self: flex-end">
+                            <img src="img/projects/ItemCounts/configExample.webp" width="350" alt="example configuration"
+                                 style="width: 350px; height: auto;"/>
                         </div>
                     </div>
-                </div>
-                <div style="padding-top: 40px;">
-                    Did I mention that it's fully configurable?
-                    <div style="padding-top: 5px">
-                        <img src="img/projects/SoD_DebugTools/config.png" width="810" alt="debug camera screenshot"
-                             style="width: 100%; max-width: 810px; height: auto;"/>
+                    <div style="padding-top: 10px">
+                        <img src="img/projects/ItemCounts/configuredHotBar.png" width="1000" alt="image showing the example config in action"
+                             style="width: 100%; max-width: 1000px; height: auto;"/>
                     </div>
                 </div>
             </div>
@@ -483,219 +712,87 @@
         <buttons>
             <div class="basic-flex-row flex-centered">
                 <span style="padding-right: 2px">Get it on</span>
-                <div class="project-button"
-                     redirect="https://github.com/BlazingTwist/SoD_Modding"
-                     onclick="onClickRedirect(this)">
+                <button class="project-button"
+                        redirect="https://www.curseforge.com/minecraft/mc-mods/item-counts-fabric"
+                        onclick="onClickRedirect(this)">
+                    <i class="fa-solid fa-fire-flame-curved button-icon-before-text"></i>
+                    CurseForge
+                </button>
+                <button class="project-button"
+                        redirect="https://github.com/BlazingTwist/ItemCounts"
+                        onclick="onClickRedirect(this)">
                     <i class="fa-brands fa-github button-icon-before-text"></i>
                     GitHub
-                </div>
+                </button>
             </div>
         </buttons>
     </project>
-    <!--<project style="display: none;">
-        <icon iconPath="img/projects/wipIcon512.png"></icon>
-        <title text="SoD Offline Server"></title>
+    <project>
+        <icon iconPath="img/projects/AntiToolBreak/icon512.webp"></icon>
+        <title text="Anti Tool Break"></title>
         <tags>
+            <tag text="Java"></tag>
             <tag text="Game Mod"></tag>
-            <tag text="Console App"></tag>
-            <tag text="Java"></tag>
-            <tag text="C#"></tag>
-            <tag text="School Of Dragons"></tag>
-            <tag text="WIP"></tag>
+            <tag text="Minecraft"></tag>
         </tags>
         <summaryBody>
             <div class="summary-body">
-                A reverse engineered Server for the game 'School of Dragons'
+                A Minecraft mod that stops you from breaking your precious tools.
             </div>
         </summaryBody>
         <descriptionBody>
             <div class="description-body">
-                TODO show database graph
-                TODO more stuff?
-            </div>
-        </descriptionBody>
-        <buttons>
-            <div class="basic-flex-row flex-centered">
-                <span style="padding-right: 2px">Get it on</span>
-                <div class="project-button"
-                     redirect="https://github.com/BlazingTwist/SoD_OfflineServer"
-                     onclick="onClickRedirect(this)">
-                    <i class="fa-brands fa-github button-icon-before-text"></i>
-                    GitHub
-                </div>
-            </div>
-        </buttons>
-    </project>-->
-    <project>
-        <icon iconPath="img/projects/wipIcon512.png"></icon>
-        <title text="Java Game Engine"></title>
-        <tags>
-            <tag text="GUI App"></tag>
-            <tag text="Java"></tag>
-            <tag text="C++"></tag>
-            <tag text="GPU Programming"></tag>
-            <tag text="Rendering"></tag>
-            <tag text="WIP"></tag>
-        </tags>
-        <summaryBody>
-            <div class="summary-body">
-                A basic OpenGL based Game Engine written in Java.
-            </div>
-        </summaryBody>
-        <descriptionBody>
-            <div class="description-body">
-                The result of a 'Game Engine Project' course I took in university.
-                <div>
-                    After the course, I rewrote the <a href="https://github.com/BlazingTwist/GameEngineProject">C++ project</a> in Java.
-                </div>
-                <div style="padding-top: 10px">
-                    Has basic phong shading and support for normal- and height maps.
-                    <div style="padding-top: 10px">
-                        <img src="img/projects/JavaEngine/rendering.jpg" width="600" alt="example rendering features"
-                             style="width: 100%; max-width: 600px; height: auto;"/>
-                    </div>
-                </div>
-                <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 10px">
-                    <div style="padding-top: 20px">
-                        A simple shader for Sphere particles.
-                        <div style="padding-top: 10px">
-                            <img src="img/projects/JavaEngine/sphereParticles.jpg" width="400" alt="example sphere particles"
-                                 style="width: 100%; max-width: 400px; height: auto;"/>
+                <div style="display: flex; flex-direction: row; flex-wrap: nowrap; gap: 20px;">
+                    <div style="display: flex; flex-direction: column; flex-wrap: nowrap; justify-content: space-between; margin-bottom: 20px; gap: 15px;">
+                        <div>
+                            ATB is a fully configurable mod that keeps you from breaking that pickaxe you've spent 2 hours making.
+                        </div>
+                        <div>
+                            <div>
+                                But why stop there?
+                                <div style="padding-top: 5px">
+                                    ATB can stop you from breaking <b>any</b> item with durability in Minecraft.
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            As an example, let's completely disable usage of enchanted, gold, diamond or netherite tools:
                         </div>
                     </div>
-                    <div style="padding-top: 20px">
-                        A shader for animated shock-waves.
-                        <div style="padding-top: 10px">
-                            <video width="400" autoplay loop controls style="width: 100%; max-width: 400px; height: auto;">
-                                <source src="img/projects/JavaEngine/shockwave.webm" type="video/webm">
-                            </video>
-                        </div>
-                    </div>
-                    <div style="padding-top: 20px">
-                        A basic implementation of marching cubes.
-                        <div style="padding-top: 10px">
-                            <video width="400" autoplay loop controls style="width: 100%; max-width: 400px; height: auto;">
-                                <source src="img/projects/JavaEngine/marchingCubes.webm" type="video/webm">
-                            </video>
-                        </div>
-                    </div>
-                    <div style="padding-top: 20px">
-                        It also generated the background image for this site.
-                        <div style="padding-top: 10px">
-                            <img src="img/projects/JavaEngine/spacetex.jpg" width="400" alt="example marching cubes animation"
-                                 style="width: 100%; max-width: 400px; height: auto;"/>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </descriptionBody>
-        <buttons>
-            <div class="basic-flex-row flex-centered">
-                <span style="padding-right: 2px">Get it on</span>
-                <div class="project-button"
-                     redirect="https://github.com/BlazingTwist/JavaGameEngine"
-                     onclick="onClickRedirect(this)">
-                    <i class="fa-brands fa-github button-icon-before-text"></i>
-                    GitHub
-                </div>
-            </div>
-        </buttons>
-    </project>
-    <project>
-        <icon iconPath="img/projects/FX_LS/icon512.png"></icon>
-        <title text="JavaFX Loading Spinner"></title>
-        <tags>
-            <tag text="Library"></tag>
-            <tag text="Java"></tag>
-            <tag text="JavaFX Utility"></tag>
-        </tags>
-        <summaryBody>
-            <div class="summary-body">
-                An animated Spinner for JavaFX.
-            </div>
-        </summaryBody>
-        <descriptionBody>
-            <div class="description-body">
-                A JavaFX library for an animated spinner with status indicators.
-                <div style="padding-top: 10px; display: flex; flex-direction: row; flex-wrap: wrap; align-items: center; gap: 10px;">
-                    <img src="img/projects/FX_LS/loadingSpinner.gif" width="256" alt="example spinner animation"
-                         style="width: 100%; max-width: 256px; height: auto;"/>
-                    <div>
-                        Has various features such as:
-                        <ul style="margin-top: 0; padding-left: 2ch;">
-                            <li>progress - use the spinner as a regular loading bar</li>
-                            <li>progress text - show the progress as a text</li>
-                            <li>fill direction - choose between (counter)/clockwise filling</li>
-                            <li>custom animated icons specified as SVG paths</li>
-                            <li>custom animated blending between colors</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </descriptionBody>
-        <buttons>
-            <div class="basic-flex-row flex-centered">
-                <span style="padding-right: 2px">Get it on</span>
-                <!-- TODO Maven relese -->
-                <div class="project-button"
-                     redirect="https://github.com/BlazingTwist/FXLoadingSpinner"
-                     onclick="onClickRedirect(this)">
-                    <i class="fa-brands fa-github button-icon-before-text"></i>
-                    GitHub
-                </div>
-            </div>
-        </buttons>
-    </project>
-    <project>
-        <icon iconPath="img/projects/pdvs/icon512.png"></icon>
-        <title text="Windows Volume Mixer API"></title>
-        <tags>
-            <tag text="Console App"></tag>
-            <tag text="C#"></tag>
-        </tags>
-        <summaryBody>
-            <div class="summary-body">
-                A Console App for setting the volume of Applications in Windows.
-            </div>
-        </summaryBody>
-        <descriptionBody>
-            <div class="description-body">
-                <div>
-                    Initially developed as a fix for 'Phantom Dust',<br/>I quickly noticed that this would make for a decent general purpose application.
-                </div>
-                <div style="padding-top: 10px">
-                    For example, you could set your browser volume automatically.
-                    <div style="padding-top: 5px">
-                        <img src="img/projects/pdvs/cli.png" width="600" alt="example cli command and output"
-                             style="width: 100%; max-width: 600px; height: auto;"/>
-                    </div>
-                    <div style="padding-top: 10px">
-                        The above command sets the browser volume level to 33% of the speaker volume level.
-                    </div>
-                    <div style="padding-top: 5px">
-                        <img src="img/projects/pdvs/VolumeMixer.png" width="200" alt="example cli command and output"
-                             style="width: 100%; max-width: 200px; height: auto;"/>
+                    <div style="align-self: flex-end">
+                        <img src="img/projects/AntiToolBreak/exampleConfig.webp" width="300" alt="example configuration"
+                             style="width: 300px; height: auto;"/>
                     </div>
                 </div>
                 <div style="padding-top: 20px">
-                    Especially useful for UWP applications that reset their volume level to 100% every time they are started.
+                    <img src="img/projects/AntiToolBreak/usedHotBar.webp" width="1000" alt="hot-bar after trying to use various tools"
+                         style="width: 100%; max-width: 1000px; height: auto;"/>
+                    <div style="padding-top: 10px;">
+                        With the configuration above, you can see that I cannot use the protected items.
+                    </div>
                 </div>
             </div>
         </descriptionBody>
         <buttons>
             <div class="basic-flex-row flex-centered">
                 <span style="padding-right: 2px">Get it on</span>
-                <div class="project-button"
-                     redirect="https://github.com/BlazingTwist/PhantomDustVolumeSetter"
-                     onclick="onClickRedirect(this)">
+                <button class="project-button"
+                        redirect="https://www.curseforge.com/minecraft/mc-mods/anti-tool-break-fabric"
+                        onclick="onClickRedirect(this)">
+                    <i class="fa-solid fa-fire-flame-curved button-icon-before-text"></i>
+                    CurseForge
+                </button>
+                <button class="project-button"
+                        redirect="https://github.com/BlazingTwist/AntiToolBreak"
+                        onclick="onClickRedirect(this)">
                     <i class="fa-brands fa-github button-icon-before-text"></i>
                     GitHub
-                </div>
+                </button>
             </div>
         </buttons>
     </project>
     <project>
-        <icon iconPath="img/projects/Pico_Keyboard/icon512.jpg"></icon>
+        <icon iconPath="img/projects/Pico_Keyboard/icon512.webp"></icon>
         <title text="Pico Keyboard"></title>
         <tags>
             <tag text="Microcontroller Script"></tag>
@@ -703,7 +800,7 @@
         </tags>
         <summaryBody>
             <div class="summary-body">
-                A script for reading keypresses from a Keyboard Matrix.
+                A script for reading key-presses from a Keyboard Matrix.
             </div>
         </summaryBody>
         <descriptionBody>
@@ -716,7 +813,7 @@
                         Comes with more resources to make it easier for anyone to replicate this project.<br/>Such as this matrix generator spreadsheet:
                     </div>
                     <div style="padding-top: 10px">
-                        <img src="img/projects/Pico_Keyboard/Matrix.png" width="600" alt="image of the keyboard matrix spreadsheet"
+                        <img src="img/projects/Pico_Keyboard/Matrix.webp" width="600" alt="image of the keyboard matrix spreadsheet"
                              style="width: 100%; max-width: 600px; height: auto;"/>
                     </div>
                 </div>
@@ -740,7 +837,7 @@
                     Here's my final result:<br/>(though I recommend getting a proper circuit board to mount the Pico instead, if possible)
                     <div style="padding-top: 10px">
                         <div>
-                            <img src="img/projects/Pico_Keyboard/final.jpg" width="600" alt="image of the keyboard matrix spreadsheet"
+                            <img src="img/projects/Pico_Keyboard/final.webp" width="600" alt="image of the keyboard matrix spreadsheet"
                                  style="width: 100%; max-width: 600px; height: auto;"/>
                         </div>
                     </div>
@@ -750,17 +847,17 @@
         <buttons>
             <div class="basic-flex-row flex-centered">
                 <span style="padding-right: 2px">Get it on</span>
-                <div class="project-button"
-                     redirect="https://github.com/BlazingTwist/PicoKeyboard"
-                     onclick="onClickRedirect(this)">
+                <button class="project-button"
+                        redirect="https://github.com/BlazingTwist/PicoKeyboard"
+                        onclick="onClickRedirect(this)">
                     <i class="fa-brands fa-github button-icon-before-text"></i>
                     GitHub
-                </div>
+                </button>
             </div>
         </buttons>
     </project>
     <project>
-        <icon iconPath="img/projects/Teensy_Keyboard/icon512_v2.jpg"></icon>
+        <icon iconPath="img/projects/Teensy_Keyboard/icon512_v2.webp"></icon>
         <title text="TeensyLC Keyboard"></title>
         <tags>
             <tag text="Microcontroller Script"></tag>
@@ -768,14 +865,14 @@
         </tags>
         <summaryBody>
             <div class="summary-body">
-                A script for reading keypresses from a Keyboard Matrix.
+                A script for reading key-presses from a Keyboard Matrix.
             </div>
         </summaryBody>
         <descriptionBody>
             <div class="description-body">
                 <span>Using a TeensyLC to repurpose the keyboard of a broken Notebook</span>
                 <div style="padding-top: 10px">
-                    <img src="img/projects/Teensy_Keyboard/final.jpg" width="600" alt="image showing the final build"
+                    <img src="img/projects/Teensy_Keyboard/final.webp" width="600" alt="image showing the final build"
                          style="width: 100%; max-width: 600px; height: auto;"/>
                 </div>
                 <div style="padding-top: 20px">
@@ -796,37 +893,6 @@
             </div>
         </buttons>
     </project>
-    <!-- <project style="display: none;">
-        <icon iconPath="img/projects/wipIcon512.png"></icon>
-        <title text="SteamGifts Watchlist"></title>
-        <tags>
-            <tag text="Chromium Extension"></tag>
-            <tag text="JavaScript"></tag>
-            <tag text="WIP"></tag>
-        </tags>
-        <summaryBody>
-            <div class="summary-body">
-                Highlight giveaways for games you want to win
-            </div>
-        </summaryBody>
-        <descriptionBody>
-            <div class="description-body">
-                TODO show watchlist gui
-                TODO show highlighted giveaway
-            </div>
-        </descriptionBody>
-        <buttons>
-            <div class="basic-flex-row flex-centered">
-                <span style="padding-right: 2px">Get it on</span>
-                <div class="project-button"
-                     redirect="https://github.com/BlazingTwist/SteamGiftsWatchlistExtension"
-                     onclick="onClickRedirect(this)">
-                    <i class="fa-brands fa-github button-icon-before-text"></i>
-                    GitHub
-                </div>
-            </div>
-        </buttons>
-    </project> -->
     <project>
         <icon iconPath="img/projects/wipIcon512.png"></icon>
         <title text="EH.B() First Person Camera"></title>
@@ -846,7 +912,7 @@
                 <div>WIP - Converting the Bird's Eye, point and click movement to WASD still needs a lot of polishing.</div>
                 <div style="padding-top: 10px">But here's a pretty screenshot of the camera in action:</div>
                 <div style="padding-top: 10px">
-                    <img src="img/projects/EHB_FirstPerson/FPV_example.jpg" width="600" alt="screenshot of the first person view"
+                    <img src="img/projects/EHB_FirstPerson/FPV_example.webp" width="600" alt="screenshot of the first person view"
                          style="width: 100%; max-width: 600px; height: auto;">
                 </div>
             </div>
@@ -854,7 +920,7 @@
         <buttons>
             <div class="basic-flex-row flex-centered">
                 <span style="padding-right: 2px">Get it on</span>
-                <!-- TODO ModDB / Nexus relese -->
+                <!-- TODO ModDB / Nexus release -->
                 <div class="project-button"
                      redirect="https://github.com/BlazingTwist/ElseHeartBreak_Mods"
                      onclick="onClickRedirect(this)">
@@ -881,7 +947,7 @@
         <descriptionBody>
             <div class="description-body">
                 WIP - Currently consists of a collection of notes on:
-                <ul style="margin-top: 3px">
+                <ul>
                     <li>Puzzle redesigns to make more use of existing game mechanics</li>
                     <li>Bug Fixes</li>
                     <li>Reworks for Game-Mechanics that are too powerful</li>
@@ -929,7 +995,7 @@
                     <div style="padding-top: 10px">
                         <img src="img/projects/SoR_Music_Loader/CustomConfigFile.png" width="400" alt="image showing a config file for custom music"
                              style="width: 100%; max-width: 400px; height: auto;">
-                        <img src="img/projects/SoR_Music_Loader/CustomCampaignGUI.jpg" width="400" alt="image showing how to select custom music"
+                        <img src="img/projects/SoR_Music_Loader/CustomCampaignGUI.webp" width="400" alt="image showing how to select custom music"
                              style="width: 100%; max-width: 400px; height: auto;">
                     </div>
                 </div>
@@ -951,68 +1017,71 @@
             </div>
         </buttons>
     </project>
-    <project>
-        <icon iconPath="img/projects/CannonTracer/icon512.png"></icon>
-        <title text="Minecraft Cannon Inspector"></title>
+    <!--<project style="display: none;">
+    <icon iconPath="img/projects/wipIcon512.png"></icon>
+    <title text="SoD Offline Server"></title>
+    <tags>
+        <tag text="Game Mod"></tag>
+        <tag text="Console App"></tag>
+        <tag text="Java"></tag>
+        <tag text="C#"></tag>
+        <tag text="School Of Dragons"></tag>
+        <tag text="WIP"></tag>
+    </tags>
+    <summaryBody>
+        <div class="summary-body">
+            A reverse engineered Server for the game 'School of Dragons'
+        </div>
+    </summaryBody>
+    <descriptionBody>
+        <div class="description-body">
+            TODO show database graph
+            TODO more stuff?
+        </div>
+    </descriptionBody>
+    <buttons>
+        <div class="basic-flex-row flex-centered">
+            <span style="padding-right: 2px">Get it on</span>
+            <div class="project-button"
+                 redirect="https://github.com/BlazingTwist/SoD_OfflineServer"
+                 onclick="onClickRedirect(this)">
+                <i class="fa-brands fa-github button-icon-before-text"></i>
+                GitHub
+            </div>
+        </div>
+    </buttons>
+</project>-->
+    <!-- <project style="display: none;">
+        <icon iconPath="img/projects/wipIcon512.png"></icon>
+        <title text="SteamGifts Watchlist"></title>
         <tags>
-            <tag text="Game Mod"></tag>
-            <tag text="Java"></tag>
-            <tag text="Minecraft"></tag>
+            <tag text="Chromium Extension"></tag>
+            <tag text="JavaScript"></tag>
+            <tag text="WIP"></tag>
         </tags>
         <summaryBody>
             <div class="summary-body">
-                Entity tracing and other QoL features for building Cannons.
+                Highlight giveaways for games you want to win
             </div>
         </summaryBody>
         <descriptionBody>
             <div class="description-body">
-                <div>
-                    <span>Debug your Cannons with the Cannon-Tracer</span>
-                    <div style="padding-top: 10px">
-                        <img src="img/projects/CannonTracer/examplePOV1.gif" width="400" alt="gif showing the tracer in action"
-                             style="width: 100%; max-width: 400px; height: auto;">
-                        <img src="img/projects/CannonTracer/examplePOV2.gif" width="400" alt="gif showing the tracer in action"
-                             style="width: 100%; max-width: 400px; height: auto;">
-                    </div>
-                </div>
-                <div style="padding-top: 20px;">
-                    <span>Prototype your Ideas with the Cannon-Tester</span>
-                    <div style="padding-top: 10px">
-                        <img src="img/projects/CannonTracer/projectilesCMD.jpg" width="400" alt="image showing the tester gui for projectiles"
-                             style="width: 100%; max-width: 400px; height: auto;">
-                        <img src="img/projects/CannonTracer/propellantCMD.jpg" width="400" alt="image showing the tester gui for propellant"
-                             style="width: 100%; max-width: 400px; height: auto;">
-                    </div>
-                </div>
-                <div style="padding-top: 20px">
-                    <span>Assume full control with the Config and Hotkey GUI</span>
-                    <div style="padding-top: 10px">
-                        <img src="img/projects/CannonTracer/configScreen.png" width="400" alt="image showing the config screen"
-                             style="width: 100%; max-width: 400px; height: auto;">
-                        <img src="img/projects/CannonTracer/hotkeyMenu.png" width="400" alt="image showing the hotkey menu"
-                             style="width: 100%; max-width: 400px; height: auto;">
-                    </div>
-                </div>
+                TODO show watchlist gui
+                TODO show highlighted giveaway
             </div>
         </descriptionBody>
         <buttons>
             <div class="basic-flex-row flex-centered">
-                <span style="padding-right: 2px">Get in on GitHub </span>
-                <div class="project-button"
-                     redirect="https://github.com/BlazingTwist/CannonTracer"
+                <span style="padding-right: 2px">Get it on</span>
+                <button class="project-button"
+                     redirect="https://github.com/BlazingTwist/SteamGiftsWatchlistExtension"
                      onclick="onClickRedirect(this)">
                     <i class="fa-brands fa-github button-icon-before-text"></i>
-                    Client Mod
+                    GitHub
                 </div>
-                <div class="project-button"
-                     redirect="https://github.com/BlazingTwist/JumperUtils"
-                     onclick="onClickRedirect(this)">
-                    <i class="fa-brands fa-github button-icon-before-text"></i>
-                    Server Plugin
-                </div>
-            </div>
+            </button>
         </buttons>
-    </project>
+    </project> -->
 </div>
 
 <script>
@@ -1025,7 +1094,7 @@
 
         Projects.populateFilters(document.getElementById("filter-select-modal"), "tags-list", "selected-filters-list");
 
-        SpaceTexParallax.registerElements("parallax-container", "main-content-container", "space-tex-div", "treeline-div", 5);
+        SpaceTexParallax.registerElements("parallax-container", "main-content-container", "space-tex-div", "treeline-div", "treeline-footer", 5);
     });
 
     /** @type {HTMLElement|null} */
@@ -1038,6 +1107,7 @@
         modalElement.style.left = "" + (targetBoundingRect.x + targetBoundingRect.width) + "px";
         modalElement.setAttribute("opened", "true");
         activeModal = modalElement;
+        activeModal.focus();
 
         let modalBackdropElement = document.getElementById("modal-backdrop");
         modalBackdropElement.setAttribute("enabled", "true");

@@ -19,6 +19,14 @@ a:hover {
     color: #a470de;
 }
 
+ul, li {
+    margin-top: 5px;
+}
+
+ul {
+    padding-left: 2ch;
+}
+
 .modal-backdrop {
     position: fixed;
     z-index: 98;
@@ -42,6 +50,8 @@ a:hover {
 }
 
 .icon-button {
+    background: transparent;
+    border: 0;
     transition: 0.2s;
 }
 

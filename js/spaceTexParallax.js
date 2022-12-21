@@ -1,6 +1,8 @@
 ((SpaceTexParallax) => {
 
-    SpaceTexParallax.registerElements = async function registerElements(parallaxContainerID, mainContentDivID, spaceTexDivID, treelineDivID, footerID, zIndexOffset) {
+    SpaceTexParallax.registerElements = async function registerElements(
+        parallaxContainerID, parallaxHeightControllerID, mainContentDivID, spaceTexDivID, treelineDivID, footerID, zIndexOffset
+    ) {
         let spaceTexDiv = document.getElementById(spaceTexDivID);
         spaceTexDiv.classList.add("parallax_layer", "parallax_layer--back");
         spaceTexDiv.style.height = "100%";
@@ -81,6 +83,7 @@
 
         let parallaxData = {
             parallaxContainer: document.getElementById(parallaxContainerID),
+            parallaxHeightController: document.getElementById(parallaxHeightControllerID),
             zIndexOffset,
             mainContentDiv,
 
@@ -132,19 +135,23 @@
         let treelineImg = parallaxData.treelineImg;
         let treelineBlackbox = parallaxData.treelineBlackbox;
 
-        let treelineVisibleHeight = windowWidth / parallaxData.treelineWidth * parallaxData.treelineHeight;
+        let treelineVisibleHeight = (windowWidth / parallaxData.treelineWidth * parallaxData.treelineHeight) + 200;
 
         // overlay main content over treeline
         treelineDiv.style.zIndex = (parallaxData.zIndexOffset - 1).toString();
 
-        let scrollHeight = Math.max(0, (mainContentDiv.offsetHeight + (0.2 * windowHeight)) - windowHeight)
-        scrollHeight += (treelineVisibleHeight * 2);
+        let scrollHeight = Math.max(0, mainContentDiv.offsetHeight - windowHeight);
+        let treelineOverscroll = (treelineVisibleHeight * 2.5);
 
         // compute size for spaceTex
-        let targetSpaceTexWidth = (windowWidth * 2);
-        let targetSpaceTexHeight = ((windowHeight + (scrollHeight)) * 2);
+        let spaceTexZTranslate = -1200;
+        let spaceTexScaleFactor = (Math.abs(spaceTexZTranslate) + 300) / 300;
+        let targetSpaceTexWidth = (windowWidth * spaceTexScaleFactor);
+        let targetSpaceTexHeight = (windowHeight * spaceTexScaleFactor) + scrollHeight + treelineOverscroll;
 
-        spaceTexDiv.style.transform = "translateX(-" + (windowWidth / 2) + "px) translateY(-" + (windowHeight / 2) + "px) translateZ(-300px)";
+        spaceTexDiv.style.transform = "translateX(-" + (windowWidth / 2 * (spaceTexScaleFactor - 1)) + "px)"
+            + " translateY(-" + (windowHeight / 2 * (spaceTexScaleFactor - 1)) + "px)"
+            + " translateZ(" + spaceTexZTranslate + "px)";
         spaceTexDiv.style.width = "" + targetSpaceTexWidth + "px";
         spaceTexDiv.style.height = "" + targetSpaceTexHeight + "px";
 
@@ -154,7 +161,7 @@
         while (coveredHeight < targetSpaceTexHeight) {
             let skyTexImgClone = spaceTexDiv.children.item(0).cloneNode(true);
             let skyTexImgElement = (skyTexImgClone.tagName === "img" ? skyTexImgClone : NodeUtils.findChildWithTag(skyTexImgClone, "img"));
-            skyTexImgElement.style.marginTop = "-3px";
+            skyTexImgElement.style.marginTop = "-" + spaceTexScaleFactor + "px";
 
             spaceTexDiv.appendChild(skyTexImgClone);
             coveredHeight += currentSingleImageHeight;
@@ -168,34 +175,30 @@
         // thus: translateZ = perspective - (perspective * scrollableHeight / trueImageHeight)
         // e.g.: translateZ = 300 - (300 * 2500 / 250) = 300 - (300 * 10) = -2700
         //  the resulting scroll slowdown will then be 10x -> 2500 px scroll translates to 250 px scroll
-        let treelineScaleFactor = scrollHeight / treelineVisibleHeight;
+        let treelineScaleFactor = (scrollHeight + treelineOverscroll) / treelineVisibleHeight;
         let treelineTranslateZ = 300 - (300 * treelineScaleFactor);
 
-        // currently the image left edge is ((windowWidth / 2) - ((windowWidth / 2) / treelineScaleFactor))
-        //  pixels away from the left edge of the viewport (the same applies to the topEdge using windowHeight)
-        // ((windowWidth / 2) - ((windowWidth / 2) / treelineScaleFactor)) * treelineScaleFactor
-        // = (windowWidth / 2 * treelineScaleFactor) - (windowWidth / 2)
-        // = (windowWidth / 2) * ((treelineScaleFactor) - (1))
-        let treelineOffsetFactor = (treelineScaleFactor - 1) / 2;
-        let treelineWidthOffset = windowWidth * treelineOffsetFactor;
-        let treelineHeightOffset = windowHeight * treelineOffsetFactor;
         treelineDiv.style.transform =
-            "translateX(-" + (treelineWidthOffset) + "px) translateY(-" + (treelineHeightOffset) + "px) translateZ(" + treelineTranslateZ + "px)";
+            "translateX(-" + ((windowWidth / 2) * (treelineScaleFactor - 1)) + "px)"
+            + " translateY(-" + ((windowHeight / 2) * (treelineScaleFactor - 1)) + "px)"
+            + " translateZ(" + treelineTranslateZ + "px)";
         treelineDiv.style.width = "" + (windowWidth * treelineScaleFactor) + "px";
-        treelineDiv.style.height = "" + ((windowHeight + scrollHeight) * treelineScaleFactor) + "px";
+        treelineDiv.style.height = "" + ((windowHeight * treelineScaleFactor) + scrollHeight + treelineOverscroll) + "px";
+
+        parallaxData.parallaxHeightController.style.height = "" + (windowHeight + scrollHeight + treelineOverscroll) + "px";
 
         let currentScrollAmount = parallaxData.parallaxContainer.scrollTop;
         let previousTreelineScale = parallaxData._previousTreelineScale || treelineScaleFactor;
         let shiftOffset = ((currentScrollAmount / treelineScaleFactor) - (currentScrollAmount / previousTreelineScale)) * treelineScaleFactor;
         animateTranslateFromTo(
             treelineImg,
-            "0px " + (shiftOffset + (windowHeight * 0.9 * treelineScaleFactor)) + "px",
-            "0px " + (windowHeight * 0.9 * treelineScaleFactor) + "px"
+            "0px " + (shiftOffset + (windowHeight * treelineScaleFactor)) + "px",
+            "0px " + ((windowHeight * treelineScaleFactor)) + "px"
         );
         animateTranslateFromTo(
             treelineBlackbox,
-            "0px " + (shiftOffset + ((windowHeight * 0.9 - 1) * treelineScaleFactor)) + "px",
-            "0px " + ((windowHeight * 0.9 - 1) * treelineScaleFactor) + "px"
+            "0px " + (shiftOffset + ((windowHeight - 1) * treelineScaleFactor)) + "px",
+            "0px " + ((windowHeight - 1) * treelineScaleFactor) + "px"
         );
 
         parallaxData.footerDiv.style.transform = "scale(" + treelineScaleFactor + ")";

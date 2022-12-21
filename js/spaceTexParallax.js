@@ -142,9 +142,10 @@
 
         let scrollHeight = Math.max(0, mainContentDiv.offsetHeight - windowHeight);
         let treelineOverscroll = (treelineVisibleHeight * 2.5);
+        let treelineScaleFactor = (scrollHeight + treelineOverscroll) / treelineVisibleHeight;
+        let treelineTranslateZ = 300 - (300 * treelineScaleFactor);
 
-        // compute size for spaceTex
-        let spaceTexZTranslate = -1200;
+        let spaceTexZTranslate = treelineTranslateZ * 1.5;
         let spaceTexScaleFactor = (Math.abs(spaceTexZTranslate) + 300) / 300;
         let targetSpaceTexWidth = (windowWidth * spaceTexScaleFactor);
         let targetSpaceTexHeight = (windowHeight * spaceTexScaleFactor) + scrollHeight + treelineOverscroll;
@@ -157,26 +158,17 @@
 
         // repeat image if target height exceeds height of image
         let currentSingleImageHeight = targetSpaceTexWidth / parallaxData.spaceTexWidth * parallaxData.spaceTexHeight;
-        let coveredHeight = spaceTexDiv.childElementCount * currentSingleImageHeight;
+        let coveredHeight = (spaceTexDiv.childElementCount - 1) * currentSingleImageHeight;
+        console.log("covHeight: " + coveredHeight + " | target: " + targetSpaceTexHeight);
         while (coveredHeight < targetSpaceTexHeight) {
             let skyTexImgClone = spaceTexDiv.children.item(0).cloneNode(true);
             let skyTexImgElement = (skyTexImgClone.tagName === "img" ? skyTexImgClone : NodeUtils.findChildWithTag(skyTexImgClone, "img"));
             skyTexImgElement.style.marginTop = "-" + spaceTexScaleFactor + "px";
 
+            spaceTexDiv.insertBefore(skyTexImgClone, spaceTexDiv.children.item(spaceTexDiv.childElementCount - 1));
             spaceTexDiv.appendChild(skyTexImgClone);
             coveredHeight += currentSingleImageHeight;
         }
-
-        // compute size for treeline
-        // this should set the translateZ property such that the image is
-        //  - fully off-screen at the top of the page (top edge of img is touching bottom edge of view)
-        //  - fully on-screen at the bottom of the page (bottom edge of img is touching bottom edge of view)
-        // consequently: visible y translation on page scroll == true image height
-        // thus: translateZ = perspective - (perspective * scrollableHeight / trueImageHeight)
-        // e.g.: translateZ = 300 - (300 * 2500 / 250) = 300 - (300 * 10) = -2700
-        //  the resulting scroll slowdown will then be 10x -> 2500 px scroll translates to 250 px scroll
-        let treelineScaleFactor = (scrollHeight + treelineOverscroll) / treelineVisibleHeight;
-        let treelineTranslateZ = 300 - (300 * treelineScaleFactor);
 
         treelineDiv.style.transform =
             "translateX(-" + ((windowWidth / 2) * (treelineScaleFactor - 1)) + "px)"

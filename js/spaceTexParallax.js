@@ -141,7 +141,7 @@
         treelineDiv.style.zIndex = (parallaxData.zIndexOffset - 1).toString();
 
         let scrollHeight = Math.max(0, mainContentDiv.offsetHeight - windowHeight);
-        let treelineOverscroll = (treelineVisibleHeight * 2.5);
+        let treelineOverscroll = treelineVisibleHeight;
         let treelineScaleFactor = (scrollHeight + treelineOverscroll) / treelineVisibleHeight;
         let treelineTranslateZ = 300 - (300 * treelineScaleFactor);
 

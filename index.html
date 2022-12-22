@@ -1105,8 +1105,8 @@
     function openModalHere(targetNode, modalID) {
         let modalElement = document.getElementById(modalID);
         let targetBoundingRect = targetNode.getBoundingClientRect();
-        modalElement.style.top = "" + (targetBoundingRect.y + targetBoundingRect.height) + "px";
-        modalElement.style.left = "" + (targetBoundingRect.x + targetBoundingRect.width) + "px";
+        modalElement.style.top = "" + (targetBoundingRect.y + targetBoundingRect.height + 10) + "px";
+        modalElement.style.left = "" + (targetBoundingRect.x + ((targetBoundingRect.width - modalElement.offsetWidth) * 0.5)) + "px";
         modalElement.setAttribute("opened", "true");
         activeModal = modalElement;
         activeModal.focus();

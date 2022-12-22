@@ -88,9 +88,9 @@ ul {
     flex-direction: column;
     gap: 10px;
     visibility: hidden;
-    transition: 0.2s ease-in-out;
+    transition: 0.12s linear;
     transition-property: transform;
-    transform: translateX(-50%) translateY(-50%) scaleX(0) scaleY(0);
+    transform: translateX(0) translateY(0) scaleX(0) scaleY(1);
 }
 
 .filter-select-modal[opened] {
